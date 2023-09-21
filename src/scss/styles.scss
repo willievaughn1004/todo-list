@@ -1,13 +1,46 @@
 @import "reset";
 
 body {
-    display: flex;
-    flex-direction: column;
-    color: white;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  min-height: 100vh;
 }
 
-header, footer {
+header {
+  display: grid;
+  flex-direction: row;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+
+  background-color: black;
+  height: 3rem;
+  font-size: 1.25rem;
+
+  h1 {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-column: 1;
+    gap: 0.25rem;
+    width: 1.5rem;
+    margin-left: 2rem;
+    cursor: pointer;
+  
+    .slice {
+      width: 1.5rem;
+      height: 0.125rem;
+      background-color: white;
+    }
+  }
+}
+
+footer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,6 +50,6 @@ header, footer {
 }
 
 main {
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
