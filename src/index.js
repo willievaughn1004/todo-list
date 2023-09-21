@@ -1,4 +1,4 @@
 import "./scss/styles.scss";
-import addHamburger from "./modules/hamburger.js"
+import addSidebar from "./modules/hamburger.js"
 
-addHamburger();
+addSidebar();
