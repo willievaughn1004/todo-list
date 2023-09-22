@@ -77,11 +77,11 @@ main {
   flex-direction: column;
 
   color: black;
-  box-shadow: 0 0 5px black;
+  box-shadow: 0px 0 15px black;
   background-color: white;
   width: 15rem;
   padding: 1rem;
-  transform: translateX(-100%);
+  transform: translateX(-150%);
   transition: all 0.2s ease-in-out 0s;
 
   .general {
