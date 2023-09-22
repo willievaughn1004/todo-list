@@ -1,4 +1,4 @@
 import "./scss/styles.scss";
-import addSidebar from "./modules/hamburger.js"
+import initializeToggle from "./modules/hamburger.js"
 
-addSidebar();
+initializeToggle();
