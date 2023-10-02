@@ -10,6 +10,11 @@
 }
 
 $hover-gray: rgb(192, 192, 192);
+$input-red: red;
+$input-green: green;
+$input-blue: rgb(99, 164, 186);
+$input-orange: orange;
+$input-hover-color: white;
 
 body {
   display: flex;
@@ -76,12 +81,15 @@ main {
   display: flex;
   flex-direction: column;
 
+  position: relative;
   color: black;
   box-shadow: 0px 0 15px black;
   background-color: white;
-  width: 15rem;
+  width: 17.5rem;
   padding: 1rem;
-  transform: translateX(-150%);
+  font-size: 1.25rem;
+  left: -17.5rem;
+  margin-left: -17.5rem;
   transition: all 0.2s ease-in-out 0s;
 
   .general {
@@ -103,9 +111,167 @@ main {
 }
 
 .active {
-    transform: translateX(0);
+  transform: translateX(0);
+  left: 0;
+  margin-left: 0;
 }
 
 .active-background {
-    background-color: rgba($color: #000000, $alpha: 0.3);
+  background-color: rgba($color: #000000, $alpha: 0.3);
+}
+
+// Note creation section
+
+.note-creation {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: absolute;
+  top: 9rem;
+  left: 2.8rem;
+  border: gray solid 0.05rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: 80%;
+  color: black;
+
+  .task-name {
+    font-weight: bold;
+    width: 100%;
+    left: 0;
+    padding: 0.25rem 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    &[contenteditable]:empty::before {
+      content: "Task Name";
+      color: rgba($color: #000000, $alpha: 0.6);
+    }
+  }
+
+  .description {
+    padding: 0.25rem 0;
+    width: 100%;
+    left: 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    &[contenteditable]:empty::before {
+      content: "Description";
+      color: rgba($color: #000000, $alpha: 0.6);
+    }
+  }
+
+  .priority {
+    label {
+      display: inline-block;
+      text-align: center;
+      width: auto;
+      padding: 6px;
+      border: solid 2px #ccc;
+      border-radius: 0.5rem;
+      transition: all 0.3s;
+      font-size: 0.8rem;
+    }
+
+    input {
+      display: none;
+      border-radius: solid 2px black;
+    }
+
+    #low + label {
+      border: solid 2px $input-green;
+      color: $input-green;
+      cursor: pointer;
+    }
+
+    #medium + label {
+      border: solid 2px $input-orange;
+      color: $input-orange;
+      cursor: pointer;
+    }
+
+    #high + label {
+      border: solid 2px $input-red;
+      color: $input-red;
+      cursor: pointer;
+    }
+
+    #low:checked + label {
+      background-color: $input-green;
+      color: $input-hover-color;
+    }
+
+    #low:checked + label {
+      background-color: $input-green;
+      color: $input-hover-color;
+    }
+
+    #medium:checked + label {
+      background-color: $input-orange;
+      color: $input-hover-color;
+    }
+
+    #high:checked + label {
+      background-color: $input-red;
+      color: $input-hover-color;
+    }
+
+    #low:hover + label:hover {
+      background-color: $input-green;
+      color: $input-hover-color;
+    }
+
+    #medium:hover + label:hover {
+      background-color: $input-orange;
+      color: $input-hover-color;
+    }
+
+    #high:hover + label:hover {
+      background-color: $input-red;
+      color: $input-hover-color;
+    }
+  }
+
+  div {
+    display: flex;
+  }
+
+  #submit {
+    width: 4rem;
+    margin-left: auto;
+    border-radius: 0.5rem;
+    border: solid 2px $input-blue;
+    color: $input-blue;
+    background-color: white;
+    font-size: 0.8rem;
+    padding: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $input-blue;
+      color: $input-hover-color;
+    }
+  }
+}
+
+// Today section
+
+.today-page {
+  margin: 2rem 2.5rem;
+  font-size: 1.5rem;
+
+  h1 {
+    color: black;
+    font-weight: 700;
+  }
+
+  i {
+    color: black;
+  }
 }
