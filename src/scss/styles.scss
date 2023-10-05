@@ -16,11 +16,16 @@ $input-blue: rgb(99, 164, 186);
 $input-orange: orange;
 $input-hover-color: white;
 
+$header-background-color: #6ad5cb;
+$header-text-color: black;
+
+// TO-DO: Add more variables for other colors.
+// It is probably okay to have variables with colors from others.
+
 body {
   display: flex;
   flex-direction: column;
 
-  color: white;
   min-height: 100vh;
 }
 
@@ -30,7 +35,8 @@ header {
   align-items: center;
   grid-template-columns: 1fr auto 1fr;
 
-  background-color: black;
+  background-color: $header-background-color;
+  color: $header-text-color;
   height: 3rem;
   font-size: 1.25rem;
 
@@ -53,7 +59,7 @@ header {
     .slice {
       width: 1.5rem;
       height: 0.125rem;
-      background-color: white;
+      background-color: $header-text-color;
     }
   }
 }
@@ -63,7 +69,8 @@ footer {
   align-items: center;
   justify-content: center;
 
-  background-color: black;
+  background-color: $header-background-color;
+  color: $header-text-color;
   height: 3rem;
   font-size: 1.25rem;
 }
@@ -77,13 +84,13 @@ main {
 
 // Handles Sidebar
 
-.sidebar {
+.sidebar,
+.sidebar-background {
   display: flex;
   flex-direction: column;
 
   position: relative;
   color: black;
-  box-shadow: 0px 0 15px black;
   background-color: white;
   width: 17.5rem;
   padding: 1rem;
@@ -91,6 +98,10 @@ main {
   left: -17.5rem;
   margin-left: -17.5rem;
   transition: all 0.2s ease-in-out 0s;
+
+  &::before {
+    box-shadow: 0px 0 15px black;
+  }
 
   .general {
     display: flex;
@@ -114,10 +125,55 @@ main {
   transform: translateX(0);
   left: 0;
   margin-left: 0;
+  z-index: 1;
+}
+
+.active-2 {
+  left: 0rem;
+  box-shadow: 0px 0px 15px black;
+  z-index: -1;
 }
 
 .active-background {
   background-color: rgba($color: #000000, $alpha: 0.3);
+}
+
+// Add Task Button
+
+.add-task {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: none;
+  background: none;
+  margin-top: 1.5rem;
+  cursor: pointer;
+
+  .fa-plus {
+    color: $header-background-color;
+    font-size: 1.25rem;
+    border-radius: 100%;
+    padding: 0.15rem 0.25rem;
+  }
+
+  p {
+    color: gray;
+    font-size: 1.25rem;
+  }
+
+  &:hover {
+    .fa-plus {
+      color: white;
+      border-radius: 100%;
+      padding: 0.15rem 0.25rem;
+      background-color: $header-background-color;
+    }
+
+    p {
+      color: $header-background-color;
+      font-size: 1.25rem;
+    }
+  }
 }
 
 // Note creation section
@@ -128,7 +184,7 @@ main {
   flex-direction: column;
   gap: 0.5rem;
   position: absolute;
-  top: 9rem;
+  top: 10rem;
   left: 2.8rem;
   border: gray solid 0.05rem;
   border-radius: 0.5rem;
@@ -136,11 +192,17 @@ main {
   width: 80%;
   color: black;
 
+  .input-container {
+    display: flex;
+    flex-direction: column;
+  }
+
   .task-name {
     font-weight: bold;
     width: 100%;
     left: 0;
     padding: 0.25rem 0;
+    cursor: text;
 
     &:focus {
       outline: none;
@@ -152,10 +214,15 @@ main {
     }
   }
 
+  #due-date {
+    margin-left: 0.25rem;
+  }
+
   .description {
     padding: 0.25rem 0;
     width: 100%;
     left: 0;
+    cursor: text;
 
     &:focus {
       outline: none;
@@ -187,18 +254,21 @@ main {
     #low + label {
       border: solid 2px $input-green;
       color: $input-green;
+      margin-left: 0.25rem;
       cursor: pointer;
     }
 
     #medium + label {
       border: solid 2px $input-orange;
       color: $input-orange;
+      margin-left: 0.75rem;
       cursor: pointer;
     }
 
     #high + label {
       border: solid 2px $input-red;
       color: $input-red;
+      margin-left: 0.75rem;
       cursor: pointer;
     }
 
@@ -236,9 +306,10 @@ main {
       background-color: $input-red;
       color: $input-hover-color;
     }
+
   }
 
-  div {
+  .priorAndSub {
     display: flex;
   }
 
@@ -252,6 +323,7 @@ main {
     font-size: 0.8rem;
     padding: 6px;
     cursor: pointer;
+    text-align: center;
 
     &:hover {
       background-color: $input-blue;
@@ -264,14 +336,10 @@ main {
 
 .today-page {
   margin: 2rem 2.5rem;
-  font-size: 1.5rem;
 
   h1 {
     color: black;
     font-weight: 700;
-  }
-
-  i {
-    color: black;
+    font-size: 1.5rem;
   }
 }
