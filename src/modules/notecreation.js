@@ -1,5 +1,14 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
 
+export const createAddTaskButton = () => {
+    const addTaskButton = buildComponent("button", "", { class: "add-task" });
+    const addTaskSign = buildComponent("i", "", { class: "fa-solid fa-plus" });
+    const addTaskText = buildComponent("p", "Add Task");
+    appendComponent(addTaskButton, [addTaskSign, addTaskText]);
+  
+    return addTaskButton;
+  };
+
 export function buildToDoNoteCreater() {
   const toDoNoteCreater = buildComponent("form", "", {
     class: "note-creation",
@@ -55,7 +64,7 @@ export function buildToDoNoteCreater() {
       type: "radio",
       value: "low",
       id: "low",
-      name: "low",
+      name: "priority-selecter",
     });
     const createLowLabel = buildComponent("label", "Low", { for: "low" });
 
@@ -63,7 +72,7 @@ export function buildToDoNoteCreater() {
       type: "radio",
       value: "medium",
       id: "medium",
-      name: "medium",
+      name: "priority-selecter",
     });
     const createMediumLabel = buildComponent("label", "Medium", {
       for: "medium",
@@ -73,7 +82,7 @@ export function buildToDoNoteCreater() {
       type: "radio",
       value: "high",
       id: "high",
-      name: "high",
+      name: "priority-selecter",
     });
     const createHighLabel = buildComponent("label", "High", { for: "high" });
 
