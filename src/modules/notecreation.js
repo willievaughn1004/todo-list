@@ -1,12 +1,12 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
 
 export const createAddTaskButton = () => {
-    const addTaskButton = buildComponent("button", "", { class: "add-task" });
-    const addTaskSign = buildComponent("i", "", { class: "fa-solid fa-plus" });
-    const addTaskText = buildComponent("p", "Add Task");
-    appendComponent(addTaskButton, [addTaskSign, addTaskText]);
+    const taskButton = buildComponent("button", "", { class: "add-task" });
+    const taskSign = buildComponent("i", "", { class: "fa-solid fa-plus" });
+    const taskText = buildComponent("p", "Add Task");
+    appendComponent(taskButton, [taskSign, taskText]);
   
-    return addTaskButton;
+    return taskButton;
   };
 
 export function buildToDoNoteCreater() {
@@ -101,12 +101,19 @@ export function buildToDoNoteCreater() {
 
   const divForSubAndPrior = buildComponent("div", "", { class: "priorAndSub" });
   const formSubmitButton = buildComponent("input", "", {
-    input: "submit",
+    type: "submit",
     value: "Submit",
     id: "submit",
   });
+  const formExitButton = buildComponent("button", "", {
+    class: "exit-button"
+  })
+  const xIcon = buildComponent("i", "", {class: "fa-solid fa-x"})
+
+  appendComponent(formExitButton, [xIcon])
   appendComponent(divForSubAndPrior, [
     createPriorityFieldset(),
+    formExitButton,
     formSubmitButton,
   ]);
 

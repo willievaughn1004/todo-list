@@ -14,6 +14,7 @@ $input-red: red;
 $input-green: green;
 $input-blue: rgb(99, 164, 186);
 $input-orange: orange;
+$input-gray: gray;
 $input-hover-color: white;
 
 $header-background-color: #6ad5cb;
@@ -323,9 +324,23 @@ main {
     display: flex;
   }
 
+  .exit-button {
+    width: 2rem;
+    border-radius: 0.5rem;
+    margin-left: auto;
+    border: solid 2px $input-gray;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      color: $input-hover-color;
+      background-color: $input-gray;
+    }
+  }
+
   #submit {
     width: 4rem;
-    margin-left: auto;
+    margin-left: 0.5rem;
     border-radius: 0.5rem;
     border: solid 2px $input-blue;
     color: $input-blue;
