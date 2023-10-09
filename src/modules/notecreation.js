@@ -1,13 +1,13 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
 
 export const createAddTaskButton = () => {
-    const taskButton = buildComponent("button", "", { class: "add-task" });
-    const taskSign = buildComponent("i", "", { class: "fa-solid fa-plus" });
-    const taskText = buildComponent("p", "Add Task");
-    appendComponent(taskButton, [taskSign, taskText]);
-  
-    return taskButton;
-  };
+  const taskButton = buildComponent("button", "", { class: "add-task" });
+  const taskSign = buildComponent("i", "", { class: "fa-solid fa-plus" });
+  const taskText = buildComponent("p", "Add Task");
+  appendComponent(taskButton, [taskSign, taskText]);
+
+  return taskButton;
+};
 
 export function buildToDoNoteCreater() {
   const toDoNoteCreater = buildComponent("form", "", {
@@ -33,9 +33,9 @@ export function buildToDoNoteCreater() {
       placeholder: "Description",
     });
 
-    appendComponent(inputContainer, [taskNameInput, descriptionInput])
+    appendComponent(inputContainer, [taskNameInput, descriptionInput]);
 
-    return inputContainer
+    return inputContainer;
   };
 
   const createDateFieldset = () => {
@@ -60,40 +60,40 @@ export function buildToDoNoteCreater() {
       class: "legend",
     });
 
-    const createLowInput = buildComponent("input", "", {
+    const lowInput = buildComponent("input", "", {
       type: "radio",
       value: "low",
       id: "low",
       name: "priority-selecter",
     });
-    const createLowLabel = buildComponent("label", "Low", { for: "low" });
+    const lowLabel = buildComponent("label", "Low", { for: "low" });
 
-    const createMediumInput = buildComponent("input", "", {
+    const mediumInput = buildComponent("input", "", {
       type: "radio",
       value: "medium",
       id: "medium",
       name: "priority-selecter",
     });
-    const createMediumLabel = buildComponent("label", "Medium", {
+    const mediumLabel = buildComponent("label", "Medium", {
       for: "medium",
     });
 
-    const createHighInput = buildComponent("input", "", {
+    const highInput = buildComponent("input", "", {
       type: "radio",
       value: "high",
       id: "high",
       name: "priority-selecter",
     });
-    const createHighLabel = buildComponent("label", "High", { for: "high" });
+    const highLabel = buildComponent("label", "High", { for: "high" });
 
     appendComponent(priorityFieldset, [
       priorityLegend,
-      createLowInput,
-      createLowLabel,
-      createMediumInput,
-      createMediumLabel,
-      createHighInput,
-      createHighLabel,
+      lowInput,
+      lowLabel,
+      mediumInput,
+      mediumLabel,
+      highInput,
+      highLabel,
     ]);
 
     return priorityFieldset;
@@ -106,11 +106,11 @@ export function buildToDoNoteCreater() {
     id: "submit",
   });
   const formExitButton = buildComponent("button", "", {
-    class: "exit-button"
-  })
-  const xIcon = buildComponent("i", "", {class: "fa-solid fa-x"})
+    class: "exit-button",
+  });
+  const xIcon = buildComponent("i", "", { class: "fa-solid fa-x" });
 
-  appendComponent(formExitButton, [xIcon])
+  appendComponent(formExitButton, [xIcon]);
   appendComponent(divForSubAndPrior, [
     createPriorityFieldset(),
     formExitButton,
@@ -124,4 +124,27 @@ export function buildToDoNoteCreater() {
   ]);
 
   return toDoNoteCreater;
+}
+
+const notes = {
+  taskname: "Jog",
+  description: "I need to jog",
+  date: "10/24/2023",
+  priority: "low",
+};
+
+// TODO: Edit to allow any obj to be injected
+export function buildToDoNote() {
+    const toDoNote = buildComponent("div", "", { class:"todo-note"});
+    const noteCopy = notes;
+
+    const checkBox = buildComponent("button", "", { class: "checkbox"})
+    const taskNameText = buildComponent("div", noteCopy.taskname, { class: "task-name-text"});
+    const descriptionText = buildComponent("div", noteCopy.description, { class: "description-text"});
+    const dateText = buildComponent("div", noteCopy.date, { class: "date-text"});
+    
+    appendComponent(toDoNote, [checkBox, taskNameText, descriptionText, dateText]);
+
+    return toDoNote;
+
 }
