@@ -26,7 +26,6 @@ $header-text-color: black;
 body {
   display: flex;
   flex-direction: column;
-
   min-height: 100vh;
 }
 
@@ -65,45 +64,32 @@ header {
   }
 }
 
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: $header-background-color;
-  color: $header-text-color;
-  height: 3rem;
-  font-size: 1.25rem;
-  margin-top: 7.5rem;
-}
-
 main {
   display: flex;
-  flex: 1;
+  height: calc(100vh - 3rem);
+  margin-left: 3.5rem;
 
   transition: background-color 0.2s ease-in-out 0s;
 }
 
-// Handles Sidebar
+// Sidebar
 
 .sidebar,
 .sidebar-background {
   display: flex;
   flex-direction: column;
 
-  position: relative;
+  position: absolute;
   color: black;
   background-color: white;
-  width: 17.5rem;
+  width: 15rem;
   padding: 1rem;
   font-size: 1.25rem;
-  left: -17.5rem;
-  margin-left: -17.5rem;
+  margin-left: -18rem;
   transition: all 0.2s ease-in-out 0s;
-
-  &::before {
-    box-shadow: 0px 0 15px black;
-  }
+  top: 3rem;
+  bottom: 0rem;
+  z-index: 1;
 
   .general {
     display: flex;
@@ -124,10 +110,7 @@ main {
 }
 
 .active {
-  transform: translateX(0);
-  left: 0;
-  margin-left: 0;
-  z-index: 1;
+  margin-left: -3.5rem;
 }
 
 .sidebar-background {
@@ -135,7 +118,7 @@ main {
 }
 
 .active-2 {
-  left: 0rem;
+  margin-left: -3.5rem;
   box-shadow: 0px 0px 15px black;
 }
 
@@ -190,8 +173,7 @@ main {
   border: gray solid 0.05rem;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  width: 100%;
-  margin-bottom: 0.5rem;
+  width: 90%;
   color: black;
 
   .input-container {
@@ -318,7 +300,6 @@ main {
       background-color: $input-red;
       color: $input-hover-color;
     }
-
   }
 
   .priorAndSub {
@@ -361,15 +342,15 @@ main {
 // Todo note
 
 .todo-note {
-
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   border-bottom: solid 1px lightgray;
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
   column-gap: 1rem;
-  
+  row-gap: 0.5;
+  width: 90%;
 
   .checkbox {
     width: 1.25rem;
@@ -382,7 +363,7 @@ main {
     &:hover {
       background-color: lightblue;
     }
-  };
+  }
 
   .task-name-text {
     font-weight: bold;
@@ -399,19 +380,24 @@ main {
     margin-top: 0.25rem;
     grid-column: 2;
   }
-
 }
 
 // Today section
 
 .today-page {
-  margin: 2rem 2.5rem;
-  width: 80%;
+  height: 100%;
+  width: 1000px;
+  margin: 0 auto;
+  overflow-y: auto;
+  padding-bottom: 6rem;
 
   h1 {
+    position: sticky;
+    background-color: white;
+    padding: 2rem 0 1rem 0;
+    top: 0;
     color: $header-text-color;
     font-weight: 700;
     font-size: 1.5rem;
-    margin-bottom: 1.5rem
   }
 }

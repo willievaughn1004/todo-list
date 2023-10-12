@@ -9,6 +9,7 @@ export function createAddTaskEventListeners() {
     mainPage.insertBefore(buildToDoNoteCreater(), taskButton);
     taskButton.style.display = "none";
     createNoteCreationEventListeners();
+    mainPage.scrollTop = mainPage.scrollHeight;
   });
 }
 
