@@ -1,6 +1,6 @@
 import "./scss/styles.scss";
 import initializeToggle from "./modules/hamburger.js";
-import { createMainPage} from "./modules/mainpage.js";
+import { createMainPage } from "./modules/mainpage.js";
 import { createAddTaskEventListeners } from "./modules/eventlisteners.js";
 import { appendComponent } from "./modules/componentfunctions";
 import { appendNotesToPage } from "./modules/notes";
@@ -8,37 +8,25 @@ import { appendNotesToPage } from "./modules/notes";
 initializeToggle();
 
 function addContentToMain(content) {
+  const currentPage = document.querySelector(".current-page");
+  currentPage && currentPage.remove();
   appendComponent("main", [createMainPage(`${content}`)]);
-};
-
-function addEventListenersForSidebar() {
-  const today = document.querySelector(".today");
-  const week = document.querySelector(".week");
-  const inbox = document.querySelector(".inbox");
-
-  inbox.addEventListener("click", function() {
-    const currentPage = document.querySelector(".current-page");
-    currentPage.remove();
-    addContentToMain("indox");
-    appendNotesToPage();
-  });
-
-  today.addEventListener("click", function() {
-    const currentPage = document.querySelector(".current-page");
-    currentPage.remove();
-    addContentToMain("today");
-    appendNotesToPage();
-  })
-
-  week.addEventListener("click", function() {
-    const currentPage = document.querySelector(".current-page");
-    currentPage.remove();
-    addContentToMain("week");
-    appendNotesToPage();
-  })
+  appendNotesToPage();
 }
 
+function addEventListenersForSidebar() {
+    const mainSidebarContainer = document.querySelector(".main-sidebar");
+    const mainSidebarContainerChildren =
+      mainSidebarContainer.querySelectorAll("[data-content]");
+
+    mainSidebarContainerChildren.forEach(function (option) {
+      option.addEventListener("click", function () {
+        const pageType = option.getAttribute("class");
+        addContentToMain(pageType);
+      });
+    });
+  };
+
 addContentToMain("indox");
-appendNotesToPage();
 createAddTaskEventListeners();
 addEventListenersForSidebar();
