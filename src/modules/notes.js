@@ -105,8 +105,9 @@ export function buildToDoNoteCreater() {
   };
 
   const createPriorAndSubDiv = () => {
-
-    const divForSubAndPrior = buildComponent("div", "", { class: "priorAndSub" });
+    const divForSubAndPrior = buildComponent("div", "", {
+      class: "priorAndSub",
+    });
     const formSubmitButton = buildComponent("input", "", {
       type: "submit",
       value: "Submit",
@@ -116,7 +117,7 @@ export function buildToDoNoteCreater() {
       class: "exit-button",
     });
     const xIcon = buildComponent("i", "", { class: "fa-solid fa-x" });
-  
+
     appendComponent(formExitButton, [xIcon]);
     appendComponent(divForSubAndPrior, [
       createPriorityFieldset(),
@@ -125,8 +126,7 @@ export function buildToDoNoteCreater() {
     ]);
 
     return divForSubAndPrior;
-
-  }
+  };
 
   appendComponent(toDoNoteCreater, [
     createInputContainer(),
@@ -161,50 +161,62 @@ export function buildToDoNote(note) {
 
 // Notes array
 const notes = [
-    {
-      taskname: "Jog",
-      description: "I need to jog",
-      date: "10/24/2023",
-      priority: "low",
-    },
-  ];
+  {
+    taskname: "Jog",
+    description: "I need to jog",
+    date: formatDate("2023-10-24"),
+    priority: "low",
+  },
+];
+
+export function filterNotes() {}
+
+// Formatting dates
+
+function formatDate(date) {
+  const splitDate = date.split("-");
+
+  const newDate = `${splitDate[1]}-${splitDate[2]}-${splitDate[0]}`;
+
+  return newDate;
+}
 
 // Collects data from inputs
 export function getNoteInput() {
-    const taskName = document.querySelector(".task-name");
-    const description = document.querySelector(".description");
-    const dueDate = document.querySelector("#due-date");
-    const priority = document.querySelector(".task-name");
+  const taskName = document.querySelector(".task-name");
+  const description = document.querySelector(".description");
+  const dueDate = document.querySelector("#due-date");
+  const priority = document.querySelector(".task-name");
 
-    return {
-        taskname: taskName.textContent,
-        description: description.textContent,
-        date: dueDate.value,
-        priority: priority,
-    }
+  return {
+    taskname: taskName.textContent,
+    description: description.textContent,
+    date: formatDate(dueDate.value),
+    priority: priority,
+  };
 }
 
 // Updates notes array
 export function uploadNoteInput(data) {
-    const newNote = {
-        taskname: data.taskname,
-        description: data.description,
-        date: data.date,
-        priority: data.priority,
-      };
+  const newNote = {
+    taskname: data.taskname,
+    description: data.description,
+    date: data.date,
+    priority: data.priority,
+  };
 
-      notes.push(newNote);
-};
+  notes.push(newNote);
+}
 
 // Updates UI with notes
 export function appendNotesToPage() {
-    const currentNotes = notes;
+  const currentNotes = notes;
 
-    const noteContainer = document.querySelector(".note-container");
+  const noteContainer = document.querySelector(".note-container");
 
-    noteContainer.textContent = "";
+  noteContainer.textContent = "";
 
-    for (let i = 0; i < currentNotes.length; i++) {
-      appendComponent(noteContainer, [buildToDoNote(currentNotes[i])]);
-    }
+  for (let i = 0; i < currentNotes.length; i++) {
+    appendComponent(noteContainer, [buildToDoNote(currentNotes[i])]);
   }
+}
