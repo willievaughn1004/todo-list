@@ -4,6 +4,7 @@ import {
   appendNotesToPage,
   uploadNoteInput,
   getNoteInput,
+  createdDeleteNoteEventListeners,
 } from "./notes";
 
 // TODO: Seperate UI and logic related tasks and assign them to their own module.
@@ -48,6 +49,7 @@ function createNoteCreationEventListeners() {
   submitButton.addEventListener("click", function (event) {
     uploadNoteInput(getNoteInput());
     appendNotesToPage();
+    createdDeleteNoteEventListeners();
     noteCreation.remove();
     toggleTaskButton();
     event.preventDefault();

@@ -343,7 +343,7 @@ main {
 
 .todo-note {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr;
   border-bottom: solid 1px lightgray;
   padding-bottom: 0.75rem;
@@ -359,10 +359,7 @@ main {
     border: solid 2.5px black;
     grid-column: 1;
     grid-row: 1;
-
-    &:hover {
-      background-color: lightblue;
-    }
+    cursor: pointer;
   }
 
   .task-name-text {
@@ -379,7 +376,20 @@ main {
     color: #000000a9;
     margin-top: 0.25rem;
     grid-column: 2;
-  }
+  };
+
+  .delete-button {
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: 2rem;
+    cursor: pointer;
+  };
+
+  .edit-button {
+    grid-column: 3;
+    grid-row: 1;
+    cursor: pointer;
+  };
 }
 
 // Main Page section

@@ -138,9 +138,24 @@ export function buildToDoNoteCreater() {
 }
 
 export function buildToDoNote(note) {
-  const toDoNote = buildComponent("div", "", { class: "todo-note" });
+  const toDoNote = buildComponent("div", "", {
+    class: "todo-note",
+    id: `${note.order}`,
+  });
 
   const checkBox = buildComponent("button", "", { class: "checkbox" });
+
+  if (note.priority === "low") {
+    checkBox.style.backgroundColor = "rgba(76, 175, 80, 0.3)";
+    checkBox.style.borderColor = "green";
+  } else if (note.priority === "medium") {
+    checkBox.style.backgroundColor = "rgba(255,165,0, 0.3)";
+    checkBox.style.borderColor = "orange";
+  } else {
+    checkBox.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
+    checkBox.style.borderColor = "red";
+  }
+
   const taskNameText = buildComponent("div", note.taskname, {
     class: "task-name-text",
   });
@@ -149,11 +164,21 @@ export function buildToDoNote(note) {
   });
   const dateText = buildComponent("div", note.date, { class: "date-text" });
 
+  const deleteIcon = buildComponent("i", "", {
+    class: "fa-solid fa-trash delete-button",
+  });
+
+  const editIcon = buildComponent("i", "", {
+    class: "fa-solid fa-pen-to-square edit-button",
+  });
+
   appendComponent(toDoNote, [
     checkBox,
     taskNameText,
     descriptionText,
     dateText,
+    editIcon,
+    deleteIcon,
   ]);
 
   return toDoNote;
@@ -166,19 +191,58 @@ const notes = [
     description: "I need to jog",
     date: formatDate("2023-10-24"),
     priority: "low",
+    order: 0,
   },
 ];
 
+// For filtering notes
 export function filterNotes() {}
+
+// For creating event listeners to delete notes
+export function createdDeleteNoteEventListeners() {
+  const noteCollection = document.getElementsByClassName("todo-note");
+
+  for (let i = 0; i < noteCollection.length; i++) {
+    const selectedNote = noteCollection[i];
+
+    const deleteButton = selectedNote.querySelector(".delete-button");
+    const noteID = selectedNote.id;
+
+    deleteButton.addEventListener("click", function () {
+      selectedNote.remove();
+      deleteNoteFromObject(noteID);
+    });
+  }
+}
+
+function deleteNoteFromObject(orderNumber) {
+
+  const noteList = notes;
+  const deletedNote = noteList.find((note) => note.order == orderNumber);
+  const index = notes.indexOf(deletedNote);
+
+  notes.splice(index, 1);
+}
 
 // Formatting dates
 
 function formatDate(date) {
   const splitDate = date.split("-");
 
-  const newDate = `${splitDate[1]}-${splitDate[2]}-${splitDate[0]}`;
+  const newDate = `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
 
   return newDate;
+}
+
+// Finds the priority that was selected
+
+function findPrioritySelection() {
+  const priorityOptions = document.getElementsByName("priority-selecter");
+  const selectedOption = Array.from(priorityOptions).find(
+    (selection) => selection.checked
+  );
+
+  return selectedOption.value;
 }
 
 // Collects data from inputs
@@ -186,15 +250,24 @@ export function getNoteInput() {
   const taskName = document.querySelector(".task-name");
   const description = document.querySelector(".description");
   const dueDate = document.querySelector("#due-date");
-  const priority = document.querySelector(".task-name");
 
   return {
     taskname: taskName.textContent,
     description: description.textContent,
     date: formatDate(dueDate.value),
-    priority: priority,
+    priority: findPrioritySelection(),
   };
 }
+
+function keepNoteHistory() {
+  let noteHistory = 0;
+
+  return function () {
+    noteHistory++;
+    return noteHistory;
+  };
+}
+let noteHistory = keepNoteHistory();
 
 // Updates notes array
 export function uploadNoteInput(data) {
@@ -203,6 +276,7 @@ export function uploadNoteInput(data) {
     description: data.description,
     date: data.date,
     priority: data.priority,
+    order: noteHistory(),
   };
 
   notes.push(newNote);
