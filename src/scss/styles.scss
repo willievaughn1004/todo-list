@@ -382,9 +382,9 @@ main {
   }
 }
 
-// Today section
+// Main Page section
 
-.today-page {
+.current-page {
   height: 100%;
   width: 1000px;
   margin: 0 auto;
@@ -394,6 +394,7 @@ main {
   h1 {
     position: sticky;
     background-color: white;
+    text-transform: capitalize;
     padding: 2rem 0 1rem 0;
     top: 0;
     color: $header-text-color;
