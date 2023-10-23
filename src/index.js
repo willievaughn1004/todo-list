@@ -1,5 +1,5 @@
 import "./scss/styles.scss";
-import initializeToggle from "./modules/hamburger.js";
+import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
 import { createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import {
@@ -67,6 +67,7 @@ function addEventListenersForSidebar() {
     option.addEventListener("click", function () {
       const pageType = option.getAttribute("class");
       addContentToMain(pageType);
+      toggleSidebar();
     });
   });
 }

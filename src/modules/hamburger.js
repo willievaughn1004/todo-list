@@ -1,12 +1,17 @@
-function toggleSidebar() {
+export function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
   const sidebarBackground = document.querySelector(".sidebar-background")
   const main = document.querySelector("main");
+  const currentPage = document.querySelector(".current-page")
+  const h1OfCurrentPage = currentPage.querySelector("h1")
+
+  console.log(h1OfCurrentPage)
 
   // Adds classes that make the sidebar appear and darkens the background
   sidebar.classList.toggle("active");
   sidebarBackground.classList.toggle("active-2");
   main.classList.toggle("active-background");
+  h1OfCurrentPage.classList.toggle("active-background");
 }
 
 function toggleHamburgerIcon() {
