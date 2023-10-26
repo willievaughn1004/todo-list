@@ -1,5 +1,5 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
-import { formatDate } from "./noteLogic";
+import { getCurrentDatesInfo, formatDate, filterNotes, notes } from "./noteLogic";
 
 // creating UI Components
 export const createAddTaskButton = () => {
@@ -195,6 +195,7 @@ export function appendNotesToPage() {
   const currentNotes = filterNotes(notes);
   const noteContainer = document.querySelector(".note-container");
   noteContainer.textContent = "";
+  console.log(currentNotes)
 
   for (let i = 0; i < currentNotes.length; i++) {
     appendComponent(noteContainer, [buildToDoNote(currentNotes[i])]);

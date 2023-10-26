@@ -8,42 +8,42 @@ import {
 } from "date-fns";
 
 // Notes array
-const notes = [
-  {
-    taskname: "Jog",
-    description: "I need to jog",
-    date: "2023-10-24",
-    priority: "low",
-    order: 0,
-  },
-  {
-    taskname: "Jog",
-    description: "I need to jog",
-    date: "2023-10-24",
-    priority: "low",
-    order: 0,
-  },
-  {
-    taskname: "Jog",
-    description: "I need to jog",
-    date: "2023-10-24",
-    priority: "low",
-    order: 0,
-  },
-  {
-    taskname: "Jog",
-    description: "I need to jog",
-    date: "2023-10-24",
-    priority: "low",
-    order: 0,
-  },
-  {
-    taskname: "Jog",
-    description: "I need to jog",
-    date: "2023-10-24",
-    priority: "low",
-    order: 0,
-  },
+export const notes = [
+  // {
+  //   taskname: "Jog",
+  //   description: "I need to jog",
+  //   date: "2023-10-24",
+  //   priority: "low",
+  //   order: 0,
+  // },
+  // {
+  //   taskname: "Jog",
+  //   description: "I need to jog",
+  //   date: "2023-10-24",
+  //   priority: "low",
+  //   order: 0,
+  // },
+  // {
+  //   taskname: "Jog",
+  //   description: "I need to jog",
+  //   date: "2023-10-24",
+  //   priority: "low",
+  //   order: 0,
+  // },
+  // {
+  //   taskname: "Jog",
+  //   description: "I need to jog",
+  //   date: "2023-10-24",
+  //   priority: "low",
+  //   order: 0,
+  // },
+  // {
+  //   taskname: "Jog",
+  //   description: "I need to jog",
+  //   date: "2023-10-24",
+  //   priority: "low",
+  //   order: 0,
+  // },
 ];
 
 export function deleteNoteFromObject(orderNumber) {
@@ -112,7 +112,7 @@ export function uploadNoteInput(data) {
   notes.push(newNote);
 }
 
-function getCurrentDatesInfo() {
+export function getCurrentDatesInfo() {
   const todayDate = new Date();
   const startOfThisWeek = startOfWeek(todayDate);
   const endOfThisWeek = endOfWeek(todayDate);
@@ -133,6 +133,7 @@ function getCurrentDatesInfo() {
   }
 
   return {
+    todayDate,
     confirmToday,
     confirmWeek,
   };
