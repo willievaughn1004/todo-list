@@ -44,6 +44,7 @@ export function createdDeleteNoteEventListeners() {
     const noteID = selectedNote.id;
 
     deleteButton.addEventListener("click", function () {
+      console.log(selectedNote);
       selectedNote.remove();
       deleteNoteFromObject(noteID);
     });

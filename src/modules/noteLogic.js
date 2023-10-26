@@ -9,41 +9,27 @@ import {
 
 // Notes array
 export const notes = [
-  // {
-  //   taskname: "Jog",
-  //   description: "I need to jog",
-  //   date: "2023-10-24",
-  //   priority: "low",
-  //   order: 0,
-  // },
-  // {
-  //   taskname: "Jog",
-  //   description: "I need to jog",
-  //   date: "2023-10-24",
-  //   priority: "low",
-  //   order: 0,
-  // },
-  // {
-  //   taskname: "Jog",
-  //   description: "I need to jog",
-  //   date: "2023-10-24",
-  //   priority: "low",
-  //   order: 0,
-  // },
-  // {
-  //   taskname: "Jog",
-  //   description: "I need to jog",
-  //   date: "2023-10-24",
-  //   priority: "low",
-  //   order: 0,
-  // },
-  // {
-  //   taskname: "Jog",
-  //   description: "I need to jog",
-  //   date: "2023-10-24",
-  //   priority: "low",
-  //   order: 0,
-  // },
+  {
+    taskname: "Jog",
+    description: "I need to jog",
+    date: "2023-10-25",
+    priority: "low",
+    order: 0,
+  },
+  {
+    taskname: "Pee",
+    description: "I need to pee",
+    date: "2023-10-26",
+    priority: "low",
+    order: 1,
+  },
+  {
+    taskname: "Walk",
+    description: "I need to walk",
+    date: "2023-10-24",
+    priority: "medium",
+    order: 2,
+  },
 ];
 
 export function deleteNoteFromObject(orderNumber) {
@@ -128,7 +114,7 @@ export function getCurrentDatesInfo() {
 
     return (
       isBefore(currentDate, endOfThisWeek) &&
-      isAfter(currentDate, startOfThisWeek)
+      isAfter(currentDate, startOfThisWeek) && (isAfter(currentDate, todayDate) || isSameDay(currentDate, todayDate))
     );
   }
 
