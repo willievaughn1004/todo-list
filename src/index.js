@@ -3,16 +3,12 @@ import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
 import { createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import {
-  buildToDoNoteCreater,
-  appendNotesToPage,
   uploadNoteInput,
   getNoteInput,
-  createdDeleteNoteEventListeners,
-} from "./modules/notefunctions";
+  deleteNoteFromObject,
+} from "./modules/noteLogic";
+import { buildToDoNoteCreater, appendNotesToPage } from "./modules/noteUI";
 
-// // TODO: Seperate UI and logic related tasks and assign them to their own module.
-// // You can use button clicks that create UI in one module, and button clicks that change
-// // logic in
 export function createAddTaskEventListeners() {
   const taskButton = document.querySelector(".add-task");
   const noteContainerUI = document.querySelector(".note-container");
@@ -37,6 +33,22 @@ const toggleTaskButton = () => {
     taskButton.style.display = "none";
   }
 };
+
+export function createdDeleteNoteEventListeners() {
+  const noteUICollection = document.getElementsByClassName("todo-note");
+
+  for (let i = 0; i < noteUICollection.length; i++) {
+    const selectedNote = noteUICollection[i];
+
+    const deleteButton = selectedNote.querySelector(".delete-button");
+    const noteID = selectedNote.id;
+
+    deleteButton.addEventListener("click", function () {
+      selectedNote.remove();
+      deleteNoteFromObject(noteID);
+    });
+  }
+}
 
 function createNoteCreationEventListeners() {
   const exitButton = document.querySelector(".exit-button");
