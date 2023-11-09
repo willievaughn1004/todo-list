@@ -1,5 +1,6 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
-import { getCurrentDatesInfo, formatDate, filterNotes, notes } from "./noteLogic";
+import { filterNotes, notes, findNote } from "./noteLogic";
+import { getCurrentDatesInfo, formatDate } from "./dateFunctions";
 
 // creating UI Components
 export const createAddTaskButton = () => {
@@ -190,14 +191,43 @@ export function buildToDoNote(note) {
   return toDoNote;
 }
 
-// Updates UI with notes
+// Updates UI with notes from the note array
 export function appendNotesToPage() {
   const currentNotes = filterNotes(notes);
   const noteContainer = document.querySelector(".note-container");
   noteContainer.textContent = "";
-  console.log(currentNotes)
 
   for (let i = 0; i < currentNotes.length; i++) {
     appendComponent(noteContainer, [buildToDoNote(currentNotes[i])]);
   }
 }
+
+// Update UI With Edit Note
+
+// TODO: I want to build a function that creates a notecreater
+// with the info from the note that can be edited.
+// How this will work, is that it will create the element
+// update it with the info from the noteLogic, and then make
+// it editable. Once the submit button is hit, then it will
+// disappear, update the note logic, and then run the appendNotesToPage
+// function again.
+
+export function generateEditableNote(id) {
+  const newNoteCreater = buildToDoNoteCreater();
+  newNoteCreater.setAttribute("class", "note-creation editable-note")
+
+  const index = findNote(id);
+
+  const editableTaskName = newNoteCreater.querySelector(".task-name");
+  const editableDescription = newNoteCreater.querySelector(".description");
+  const editableDueDate = newNoteCreater.querySelector("#due-date");
+
+  editableTaskName.innerText = notes[index].taskname;
+  editableDescription.innerText = notes[index].description;
+  editableDueDate.value = notes[index].date;
+
+  return newNoteCreater;
+
+};
+
+// Make a page refresh button. It'll be easier to set this up for event listeners

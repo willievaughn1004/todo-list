@@ -1,11 +1,6 @@
 import {
-  startOfWeek,
-  isAfter,
-  isBefore,
-  endOfWeek,
-  parseISO,
-  isSameDay,
-} from "date-fns";
+  getCurrentDatesInfo,
+} from "./dateFunctions";
 
 // Notes array
 export const notes = [
@@ -32,23 +27,25 @@ export const notes = [
   },
 ];
 
-export function deleteNoteFromObject(orderNumber) {
-  const noteList = notes;
-  const deletedNote = noteList.find((note) => note.order == orderNumber);
-  const index = notes.indexOf(deletedNote);
-
+// Delete notes array
+export function deleteNoteFromObject(index) {
   notes.splice(index, 1);
+};
+
+// Sorts note to find a specific one based on the order number
+export function findNote(orderNumber) {
+  const selecteNote = notes.find((note) => note.order == orderNumber);
+  const index = notes.indexOf(selecteNote);
+
+  return index;
 }
 
-// Formatting dates
-
-export function formatDate(date) {
-  const splitDate = date.split("-");
-
-  const newDate = `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
-
-  return newDate;
-}
+export function editNoteObject(index, newNote) {
+  notes[index].taskname = newNote.taskname;
+  notes[index].description = newNote.description;
+  notes[index].date = newNote.date;
+  notes[index].priority = newNote.priority;
+};
 
 // Finds the priority that was selected
 
@@ -76,14 +73,15 @@ export function getNoteInput() {
 }
 
 function keepNoteHistory() {
-  let noteHistory = 0;
+  let noteHistory = notes.length;
 
   return function () {
     noteHistory++;
     return noteHistory;
   };
-}
-let noteHistory = keepNoteHistory();
+};
+
+const noteHistory = keepNoteHistory();
 
 // Updates notes array
 export function uploadNoteInput(data) {
@@ -98,34 +96,7 @@ export function uploadNoteInput(data) {
   notes.push(newNote);
 }
 
-export function getCurrentDatesInfo() {
-  const todayDate = new Date();
-  const startOfThisWeek = startOfWeek(todayDate);
-  const endOfThisWeek = endOfWeek(todayDate);
-
-  function confirmToday(date) {
-    const parsedToday = parseISO(date);
-
-    return isSameDay(parsedToday, todayDate);
-  }
-
-  function confirmWeek(date) {
-    const currentDate = parseISO(date);
-
-    return (
-      isBefore(currentDate, endOfThisWeek) &&
-      isAfter(currentDate, startOfThisWeek) && (isAfter(currentDate, todayDate) || isSameDay(currentDate, todayDate))
-    );
-  }
-
-  return {
-    todayDate,
-    confirmToday,
-    confirmWeek,
-  };
-}
-
-// For filtering notes
+// For filtering notes to the corresponding page.
 export function filterNotes(noteList) {
   const selectedPage = document.querySelector(".current-page");
   let filteredNotes;

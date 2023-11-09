@@ -12,7 +12,7 @@ export function toggleSidebar() {
   currentHeader.classList.toggle("active-background");
 }
 
-function toggleHamburgerIcon() {
+export function toggleHamburgerIcon() {
   const sliceOne = document.querySelector(".slice.one");
   const sliceTwo = document.querySelector(".slice.two");
   const sliceThree = document.querySelector(".slice.three");

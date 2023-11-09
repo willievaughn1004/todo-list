@@ -1,13 +1,18 @@
 import "./scss/styles.scss";
-import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
+import initializeToggle, {
+  toggleHamburgerIcon,
+  toggleSidebar,
+} from "./modules/hamburger.js";
 import { createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import {
   uploadNoteInput,
   getNoteInput,
   deleteNoteFromObject,
+  findNote,
+  editNoteObject,
 } from "./modules/noteLogic";
-import { buildToDoNoteCreater, appendNotesToPage } from "./modules/noteUI";
+import { buildToDoNoteCreater, appendNotesToPage, generateEditableNote } from "./modules/noteUI";
 
 export function createAddTaskEventListeners() {
   const taskButton = document.querySelector(".add-task");
@@ -34,28 +39,35 @@ const toggleTaskButton = () => {
   }
 };
 
-export function createdDeleteNoteEventListeners() {
+export function createEditDeleteEventListeners() {
   const noteUICollection = document.getElementsByClassName("todo-note");
 
   for (let i = 0; i < noteUICollection.length; i++) {
     const selectedNote = noteUICollection[i];
 
     const deleteButton = selectedNote.querySelector(".delete-button");
+    const editButton = selectedNote.querySelector(".edit-button");
+
     const noteID = selectedNote.id;
 
     deleteButton.addEventListener("click", function () {
-      console.log(selectedNote);
       selectedNote.remove();
-      deleteNoteFromObject(noteID);
+      deleteNoteFromObject(findNote(noteID));
     });
-  }
-}
+
+    editButton.addEventListener("click", function () {
+      selectedNote.innerHTML = "";
+      selectedNote.appendChild(generateEditableNote(noteID));
+      createEditableNoteEventListeners(noteID);
+    });
+  };
+};
 
 function createNoteCreationEventListeners() {
   const exitButton = document.querySelector(".exit-button");
   const noteCreation = document.querySelector(".note-creation");
   const submitButton = document.querySelector("#submit");
-
+  
   exitButton.addEventListener("click", function () {
     noteCreation.remove();
     toggleTaskButton();
@@ -64,14 +76,35 @@ function createNoteCreationEventListeners() {
   submitButton.addEventListener("click", function (event) {
     uploadNoteInput(getNoteInput());
     appendNotesToPage();
-    createdDeleteNoteEventListeners();
+    createEditDeleteEventListeners();
     noteCreation.remove();
     toggleTaskButton();
     event.preventDefault();
   });
 }
 
+function createEditableNoteEventListeners(id) {
+  const editableNote = document.querySelector(".editable-note");
+  const editableSubmit = editableNote.querySelector("#submit");
+  const editableExit = editableNote.querySelector(".exit-button");
+
+  editableSubmit.addEventListener("click", function () {
+
+    editNoteObject(findNote(id), getNoteInput())
+    // Fix this to be a function you can call at any point.
+    // You repeat this multiple times.
+    appendNotesToPage();
+    createEditDeleteEventListeners();
+  })
+
+  editableExit.addEventListener("click", function () {
+    appendNotesToPage();
+    createEditDeleteEventListeners();
+  });
+}
+
 function addEventListenersForSidebar() {
+  const wholeSidebar = document.querySelector(".sidebar");
   const mainSidebarContainer = document.querySelector(".main-sidebar");
   const mainSidebarContainerChildren =
     mainSidebarContainer.querySelectorAll("[data-content]");
@@ -80,8 +113,18 @@ function addEventListenersForSidebar() {
     option.addEventListener("click", function () {
       const pageType = option.getAttribute("class");
       addContentToMain(pageType);
+      console.log(wholeSidebar.classList.contains("active"));
       toggleSidebar();
+      toggleHamburgerIcon();
     });
+
+    // document.addEventListener("click", function () {
+    //   if (wholeSidebar.classList.contains("active")) {
+    //     console.log("Hey")
+    //     toggleSidebar();
+    //     toggleHamburgerIcon();
+    //   }
+    // });
   });
 }
 
@@ -91,7 +134,7 @@ function addContentToMain(content) {
   appendComponent("main", [createMainPage(`${content}`)]);
   createAddTaskEventListeners();
   appendNotesToPage();
-  createdDeleteNoteEventListeners();
+  createEditDeleteEventListeners();
 }
 
 initializeToggle();

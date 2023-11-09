@@ -136,6 +136,7 @@ main {
   border: none;
   background: none;
   cursor: pointer;
+  width: 100%;
 
   .fa-plus {
     color: $header-background-color;
@@ -177,6 +178,7 @@ main {
   width: 90%;
   margin-top: 0.75rem;
   color: black;
+  grid-column: span 3;
 
   .input-container {
     display: flex;
