@@ -13,6 +13,7 @@ import {
   editNoteObject,
 } from "./modules/noteLogic";
 import { buildToDoNoteCreater, appendNotesToPage, generateEditableNote } from "./modules/noteUI";
+import { toggleProjectMenu } from "./modules/sidebar";
 
 export function createAddTaskEventListeners() {
   const taskButton = document.querySelector(".add-task");
@@ -141,3 +142,4 @@ initializeToggle();
 addContentToMain("inbox");
 addEventListenersForSidebar();
 createProjects();
+toggleProjectMenu();
