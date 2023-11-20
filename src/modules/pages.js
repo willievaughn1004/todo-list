@@ -29,10 +29,34 @@ export function createMainPage(page) {
 
 // Use these if need be, though you can try to refactor the
 // other function to allow for note/page creation.
-function createProjects() {
-  const projectTab = document.querySelector(".projects");
-}
+export function createProjects() {
+  const projectTab = document.querySelector(".projects-collection");
 
-function createNotes() {
-  const notesTab = document.querySelector(".notes");
-}
+  const projectCollection = [
+    "Exercise",
+  ];
+
+  function createProject(name) {
+    const newProject = buildComponent("div", "");
+
+    const projectName = buildComponent("div", name);
+
+    const deleteIcon = buildComponent("i", "", {
+      class: "fa-solid fa-trash delete-button",
+    });
+
+    appendComponent(newProject, [projectName, deleteIcon]);
+
+    return newProject;
+  };
+
+  function appendProjects() {
+    for (let i = 0; i < projectCollection.length; i++) {
+      const elem = projectCollection[i];
+      
+      projectTab.appendChild(createProject(elem));
+    };
+  };
+
+  appendProjects();
+};

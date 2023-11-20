@@ -3,7 +3,7 @@ import initializeToggle, {
   toggleHamburgerIcon,
   toggleSidebar,
 } from "./modules/hamburger.js";
-import { createMainPage } from "./modules/pages.js";
+import { createMainPage, createProjects } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import {
   uploadNoteInput,
@@ -140,3 +140,4 @@ function addContentToMain(content) {
 initializeToggle();
 addContentToMain("inbox");
 addEventListenersForSidebar();
+createProjects();
