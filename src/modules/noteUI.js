@@ -156,9 +156,12 @@ export function buildToDoNote(note) {
   } else if (note.priority === "medium") {
     checkBox.style.backgroundColor = "rgba(255,165,0, 0.3)";
     checkBox.style.borderColor = "orange";
-  } else {
+  } else if (note.priority === "high") {
     checkBox.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
     checkBox.style.borderColor = "red";
+  } else {
+    checkBox.style.backgroundColor = "white";
+    checkBox.style.borderColor = "gray";
   }
 
   const taskNameText = buildComponent("div", note.taskname, {
@@ -214,7 +217,7 @@ export function appendNotesToPage() {
 
 export function generateEditableNote(id) {
   const newNoteCreater = buildToDoNoteCreater();
-  newNoteCreater.setAttribute("class", "note-creation editable-note")
+  newNoteCreater.setAttribute("class", "note-creation editable-note");
 
   const index = findNote(id);
 
@@ -227,7 +230,6 @@ export function generateEditableNote(id) {
   editableDueDate.value = notes[index].date;
 
   return newNoteCreater;
-
-};
+}
 
 // Make a page refresh button. It'll be easier to set this up for event listeners

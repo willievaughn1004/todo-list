@@ -29,6 +29,10 @@ export function createMainPage(page) {
 
 // Use these if need be, though you can try to refactor the
 // other function to allow for note/page creation.
-function createProjects() {}
+function createProjects() {
+  const projectTab = document.querySelector(".projects");
+}
 
-function createNotes() {}
+function createNotes() {
+  const notesTab = document.querySelector(".notes");
+}

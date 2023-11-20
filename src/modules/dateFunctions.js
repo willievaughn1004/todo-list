@@ -38,6 +38,10 @@ export function getCurrentDatesInfo() {
 // Formatting dates
 
 export function formatDate(date) {
+    if (!date) {
+        return ''
+    }
+    
     const splitDate = date.split("-");
   
     const newDate = `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
