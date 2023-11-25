@@ -32,9 +32,19 @@ export function createMainPage(page) {
 export function createProjects() {
   const projectTab = document.querySelector(".projects-collection");
 
+  // TODO: Write code that checks whether or not a project being created as the same name as another
+  // Make it pop up during the pop up menu when you create the project name
+
   const projectCollection = [
     "Exercise",
+    "Pee"
   ];
+
+  function deleteProject(project) {
+
+    projectCollection = projectCollection.filter(word => word !== project);
+
+  }
 
   function createProject(name) {
     const newProject = buildComponent("div", "");

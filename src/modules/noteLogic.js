@@ -2,6 +2,11 @@ import {
   getCurrentDatesInfo,
 } from "./dateFunctions";
 
+//TODO:
+// Make sure to change notes so that the noteapplicaiton function isn't used everytime
+// Use remove function to remove note element, then delete the note in the logic
+// Like with pages.
+
 // Notes array
 export const notes = [
   {
