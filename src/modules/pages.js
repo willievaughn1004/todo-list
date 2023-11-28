@@ -29,44 +29,54 @@ export function createMainPage(page) {
 
 // Use these if need be, though you can try to refactor the
 // other function to allow for note/page creation.
-export function createProjects() {
-  const projectTab = document.querySelector(".projects-collection");
-
+// export function createProjects() 
   // TODO: Write code that checks whether or not a project being created as the same name as another
   // Make it pop up during the pop up menu when you create the project name
 
-  const projectCollection = [
-    "Exercise",
-    "Pee"
-  ];
+  
+  export const ProjectModule = (function() {
+    
+    let projectCollection = ["Exercise", "Pee"];
 
-  function deleteProject(project) {
-
-    projectCollection = projectCollection.filter(word => word !== project);
-
-  }
-
-  function createProject(name) {
-    const newProject = buildComponent("div", "");
-
-    const projectName = buildComponent("div", name);
-
-    const deleteIcon = buildComponent("i", "", {
-      class: "fa-solid fa-trash delete-button",
-    });
-
-    appendComponent(newProject, [projectName, deleteIcon]);
-
-    return newProject;
-  };
-
-  function appendProjects() {
-    for (let i = 0; i < projectCollection.length; i++) {
-      const elem = projectCollection[i];
-      
-      projectTab.appendChild(createProject(elem));
+    function getProjectTab() {
+      const projectTab = document.querySelector(".projects-collection");
+  
+      return projectTab;
+    }
+  
+    function deleteProjectFromArr(project) {
+      projectCollection = projectCollection.filter((word) => word !== project);
+  
+      console.log(projectCollection)
+    }
+  
+    function createProject(name) {
+      const newProject = buildComponent("div", "", { class: "project" });
+  
+      const projectName = buildComponent("div", name);
+  
+      const deleteIcon = buildComponent("i", "", {
+        class: "fa-solid fa-trash delete-button",
+      });
+  
+      appendComponent(newProject, [projectName, deleteIcon]);
+  
+      return newProject;
+    }
+  
+    function appendProjects() {
+      for (let i = 0; i < projectCollection.length; i++) {
+        const elem = projectCollection[i];
+  
+        getProjectTab().appendChild(createProject(elem));
+      }
+    }
+  
+    return {
+      getProjectTab,
+      appendProjects,
+      deleteProjectFromArr
     };
-  };
 
-  appendProjects();
-};
+  })();
+

@@ -3,7 +3,7 @@ import initializeToggle, {
   toggleHamburgerIcon,
   toggleSidebar,
 } from "./modules/hamburger.js";
-import { createMainPage, createProjects } from "./modules/pages.js";
+import { ProjectModule, createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import {
   uploadNoteInput,
@@ -13,7 +13,7 @@ import {
   editNoteObject,
 } from "./modules/noteLogic";
 import { buildToDoNoteCreater, appendNotesToPage, generateEditableNote } from "./modules/noteUI";
-import { toggleProjectMenu } from "./modules/sidebar";
+import { addDeleteProjectEventListener, toggleProjectMenu } from "./modules/sidebar";
 
 export function createAddTaskEventListeners() {
   const taskButton = document.querySelector(".add-task");
@@ -141,5 +141,6 @@ function addContentToMain(content) {
 initializeToggle();
 addContentToMain("inbox");
 addEventListenersForSidebar();
-createProjects();
+ProjectModule.appendProjects();
 toggleProjectMenu();
+addDeleteProjectEventListener();
