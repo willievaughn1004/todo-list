@@ -1,4 +1,3 @@
-import { addEventListenersForSidebar } from "..";
 import { appendComponent, buildComponent } from "./componentfunctions";
 import { createAddTaskButton } from "./noteUI";
 

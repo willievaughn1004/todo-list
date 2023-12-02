@@ -1,5 +1,5 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
-import { filterNotes, notes, findNote } from "./noteLogic";
+import { NoteLogicModule } from "./noteLogic";
 import { getCurrentDatesInfo, formatDate } from "./dateFunctions";
 
 // creating UI Components
@@ -196,7 +196,7 @@ export function buildToDoNote(note) {
 
 // Updates UI with notes from the note array
 export function appendNotesToPage() {
-  const currentNotes = filterNotes(notes);
+  const currentNotes = NoteLogicModule.filterNotes(NoteLogicModule.notes);
   const noteContainer = document.querySelector(".note-container");
   noteContainer.textContent = "";
 
@@ -219,15 +219,15 @@ export function generateEditableNote(id) {
   const newNoteCreater = buildToDoNoteCreater();
   newNoteCreater.setAttribute("class", "note-creation editable-note");
 
-  const index = findNote(id);
+  const index = NoteLogicModule.findNote(id);
 
   const editableTaskName = newNoteCreater.querySelector(".task-name");
   const editableDescription = newNoteCreater.querySelector(".description");
   const editableDueDate = newNoteCreater.querySelector("#due-date");
 
-  editableTaskName.innerText = notes[index].taskname;
-  editableDescription.innerText = notes[index].description;
-  editableDueDate.value = notes[index].date;
+  editableTaskName.innerText = NoteLogicModule.notes[index].taskname;
+  editableDescription.innerText = NoteLogicModule.notes[index].description;
+  editableDueDate.value = NoteLogicModule.notes[index].date;
 
   return newNoteCreater;
 }

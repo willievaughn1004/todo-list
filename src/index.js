@@ -2,13 +2,7 @@ import "./scss/styles.scss";
 import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
 import { ProjectModule, createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
-import {
-  uploadNoteInput,
-  getNoteInput,
-  deleteNoteFromObject,
-  findNote,
-  editNoteObject,
-} from "./modules/noteLogic";
+import { NoteLogicModule } from "./modules/noteLogic";
 import {
   buildToDoNoteCreater,
   appendNotesToPage,
@@ -59,7 +53,7 @@ export function createEditDeleteEventListeners() {
 
     deleteButton.addEventListener("click", function () {
       selectedNote.remove();
-      deleteNoteFromObject(findNote(noteID));
+      NoteLogicModule.deleteNoteFromObject(NoteLogicModule.findNote(noteID));
     });
 
     editButton.addEventListener("click", function () {
@@ -81,7 +75,7 @@ function createNoteCreationEventListeners() {
   });
 
   submitButton.addEventListener("click", function (event) {
-    uploadNoteInput(getNoteInput());
+    NoteLogicModule.uploadNoteInput(NoteLogicModule.getNoteInput());
     appendNotesToPage();
     createEditDeleteEventListeners();
     noteCreation.remove();
@@ -96,7 +90,10 @@ function createEditableNoteEventListeners(id) {
   const editableExit = editableNote.querySelector(".exit-button");
 
   editableSubmit.addEventListener("click", function () {
-    editNoteObject(findNote(id), getNoteInput());
+    NoteLogicModule.editNoteObject(
+      NoteLogicModule.findNote(id),
+      NoteLogicModule.getNoteInput()
+    );
     // Fix this to be a function you can call at any point.
     // You repeat this multiple times.
     appendNotesToPage();
