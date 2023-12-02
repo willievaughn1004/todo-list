@@ -10,6 +10,8 @@ export function toggleSidebar() {
   sidebarBackground.classList.toggle("active-2");
   main.classList.toggle("active-background");
   currentHeader.classList.toggle("active-background");
+
+  toggleHamburgerIcon();
 }
 
 export function toggleHamburgerIcon() {
@@ -33,7 +35,6 @@ export function toggleHamburgerIcon() {
 export default function initializeToggle() {
   const hamburgerMenuBtn = document.querySelector(".hamburger-menu-btn");
   hamburgerMenuBtn.addEventListener("click", function () {
-    toggleHamburgerIcon();
     toggleSidebar();
   });
 }

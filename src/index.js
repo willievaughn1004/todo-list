@@ -1,8 +1,5 @@
 import "./scss/styles.scss";
-import initializeToggle, {
-  toggleHamburgerIcon,
-  toggleSidebar,
-} from "./modules/hamburger.js";
+import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
 import { ProjectModule, createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import {
@@ -12,8 +9,17 @@ import {
   findNote,
   editNoteObject,
 } from "./modules/noteLogic";
-import { buildToDoNoteCreater, appendNotesToPage, generateEditableNote } from "./modules/noteUI";
-import { addDeleteProjectEventListener, toggleProjectMenu } from "./modules/sidebar";
+import {
+  buildToDoNoteCreater,
+  appendNotesToPage,
+  generateEditableNote,
+} from "./modules/noteUI";
+import {
+  addDeleteProjectEventListener,
+  addNewProjectEventListener,
+  addProjectEventListeners,
+  toggleProjectMenu,
+} from "./modules/sidebar";
 
 export function createAddTaskEventListeners() {
   const taskButton = document.querySelector(".add-task");
@@ -61,14 +67,14 @@ export function createEditDeleteEventListeners() {
       selectedNote.appendChild(generateEditableNote(noteID));
       createEditableNoteEventListeners(noteID);
     });
-  };
-};
+  }
+}
 
 function createNoteCreationEventListeners() {
   const exitButton = document.querySelector(".exit-button");
   const noteCreation = document.querySelector(".note-creation");
   const submitButton = document.querySelector("#submit");
-  
+
   exitButton.addEventListener("click", function () {
     noteCreation.remove();
     toggleTaskButton();
@@ -90,13 +96,12 @@ function createEditableNoteEventListeners(id) {
   const editableExit = editableNote.querySelector(".exit-button");
 
   editableSubmit.addEventListener("click", function () {
-
-    editNoteObject(findNote(id), getNoteInput())
+    editNoteObject(findNote(id), getNoteInput());
     // Fix this to be a function you can call at any point.
     // You repeat this multiple times.
     appendNotesToPage();
     createEditDeleteEventListeners();
-  })
+  });
 
   editableExit.addEventListener("click", function () {
     appendNotesToPage();
@@ -104,32 +109,37 @@ function createEditableNoteEventListeners(id) {
   });
 }
 
-function addEventListenersForSidebar() {
+export function addEventListenersForSidebar() {
   const wholeSidebar = document.querySelector(".sidebar");
   const mainSidebarContainer = document.querySelector(".main-sidebar");
   const mainSidebarContainerChildren =
     mainSidebarContainer.querySelectorAll("[data-content]");
 
+  function addPageEventListeners(page) {
+    const pageType = page.getAttribute("class");
+    addContentToMain(pageType);
+    toggleSidebar();
+  }
+
   mainSidebarContainerChildren.forEach(function (option) {
     option.addEventListener("click", function () {
-      const pageType = option.getAttribute("class");
-      addContentToMain(pageType);
-      console.log(wholeSidebar.classList.contains("active"));
-      toggleSidebar();
-      toggleHamburgerIcon();
+      addPageEventListeners(option);
     });
 
     // document.addEventListener("click", function () {
     //   if (wholeSidebar.classList.contains("active")) {
     //     console.log("Hey")
     //     toggleSidebar();
-    //     toggleHamburgerIcon();
     //   }
     // });
   });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    addProjectEventListeners();
+  });
 }
 
-function addContentToMain(content) {
+export function addContentToMain(content) {
   const currentPage = document.querySelector(".current-page");
   currentPage && currentPage.remove();
   appendComponent("main", [createMainPage(`${content}`)]);
@@ -144,3 +154,8 @@ addEventListenersForSidebar();
 ProjectModule.appendProjects();
 toggleProjectMenu();
 addDeleteProjectEventListener();
+addNewProjectEventListener();
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   console.log("Hey");
+// });
