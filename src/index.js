@@ -3,13 +3,13 @@ import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
 import { ProjectModule, createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import { NoteLogicModule } from "./modules/noteLogic";
+import { initializeEventListeners, sidebarEventListeners } from "./modules/eventListeners.js";
 import {
   buildToDoNoteCreater,
   appendNotesToPage,
   generateEditableNote,
 } from "./modules/noteUI";
 import {
-  addDeleteProjectEventListener,
   addNewProjectEventListener,
   addProjectEventListeners,
   toggleProjectMenu,
@@ -28,7 +28,7 @@ export function createAddTaskEventListeners() {
     createNoteCreationEventListeners();
     noteContainerUI.scrollTop = noteContainerUI.scrollHeight;
   });
-}
+};
 
 const toggleTaskButton = () => {
   const taskButton = document.querySelector(".add-task");
@@ -150,9 +150,9 @@ addContentToMain("inbox");
 addEventListenersForSidebar();
 ProjectModule.appendProjects();
 toggleProjectMenu();
-addDeleteProjectEventListener();
 addNewProjectEventListener();
+initializeEventListeners();
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   console.log("Hey");
-// });
+// TODO: Fix code to allow differation with code that is from projects. 
+// When you try to commit a message, it doesn't bring up seperate page. Figure out
+// how to fix that

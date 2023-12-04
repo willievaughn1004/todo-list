@@ -29,7 +29,7 @@ export function toggleHamburgerIcon() {
     sliceOne.style.transform = "";
     sliceThree.style.transform = "";
     sliceTwo.style.visibility = "";
-  }
+  };
 }
 
 export default function initializeToggle() {
