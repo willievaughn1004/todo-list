@@ -3,7 +3,8 @@ import { createAddTaskButton } from "./noteUI";
 
 export function createMainPage(page) {
   const mainPage = buildComponent("div", "", {
-    class: `${page}-page current-page`, id: `${page}`
+    class: `${page}-page current-page`,
+    id: `${page}`,
   });
 
   const mainElement = buildComponent("h1", `${page}`, { class: "note-header" });
