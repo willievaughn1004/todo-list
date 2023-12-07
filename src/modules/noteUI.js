@@ -205,16 +205,6 @@ export function appendNotesToPage() {
   }
 }
 
-// Update UI With Edit Note
-
-// TODO: I want to build a function that creates a notecreater
-// with the info from the note that can be edited.
-// How this will work, is that it will create the element
-// update it with the info from the noteLogic, and then make
-// it editable. Once the submit button is hit, then it will
-// disappear, update the note logic, and then run the appendNotesToPage
-// function again.
-
 export function generateEditableNote(id) {
   const newNoteCreater = buildToDoNoteCreater();
   newNoteCreater.setAttribute("class", "note-creation editable-note");
