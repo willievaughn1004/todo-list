@@ -247,7 +247,7 @@ export const NoteUIModule = (()=> {
     const priorityOptions = document.getElementsByName("priority-selecter");
     const selectedOption = Array.from(priorityOptions).find(
       (selection) => selection.checked
-    );
+    ) || '';
   
     return selectedOption.value;
   }
@@ -261,4 +261,4 @@ export const NoteUIModule = (()=> {
     getNoteInput,
     
   }
-})()
+})()                                                                                                                      
