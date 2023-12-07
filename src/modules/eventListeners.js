@@ -93,10 +93,12 @@ export const SidebarEventListenerModule = (() => {
       toggleHamburgerIcon();
       main.append(ProjectModule.createProjectNameInput());
       createNewProjectEventListener();
+      MainPageModule.toggleDarkBackground();
     });
   };
 
-  /* When a new project is created, it is added to the project object in ProjectModule,
+  /* 
+  When a new project is created, it is added to the project object in ProjectModule,
   the UI is updated with the new project, removes the project generator, toggles the menu,
   and redos any necessary event listeners.
   */
@@ -113,6 +115,7 @@ export const SidebarEventListenerModule = (() => {
       generateProjectPageEventListeners();
       toggleSidebar();
       toggleHamburgerIcon();
+      MainPageModule.toggleDarkBackground();
       event.preventDefault();
     });
   };

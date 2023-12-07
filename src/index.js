@@ -3,6 +3,7 @@ import { ProjectModule, MainPageModule } from "./modules/pages.js";
 import { initializeEventListeners } from "./modules/eventListeners.js";
 
 /*
+
 1. Fix the SCSS to properly darken the rest of the page when the sidebar
 2. Create a default project and add a couple notes to it. This a sample.
 3. Create a function that specifies what project a note is from.

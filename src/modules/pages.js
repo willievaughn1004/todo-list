@@ -22,9 +22,15 @@ export const MainPageModule = (() => {
       class: "note-creation-container",
     });
 
-    appendComponent(noteCreationContainer, [NoteUIModule.createAddTaskButton()]);
+    appendComponent(noteCreationContainer, [
+      NoteUIModule.createAddTaskButton(),
+    ]);
 
-    appendComponent(mainPage, [mainElement, noteContainer, noteCreationContainer]);
+    appendComponent(mainPage, [
+      mainElement,
+      noteContainer,
+      noteCreationContainer,
+    ]);
 
     return mainPage;
   };
@@ -40,7 +46,7 @@ export const MainPageModule = (() => {
   // Makes the "Add Task" button appear and reappear.
   const toggleTaskButton = () => {
     const taskButton = document.querySelector(".add-task");
-  
+
     if (taskButton.style.display === "none") {
       taskButton.style.display = "flex";
     } else {
@@ -48,10 +54,16 @@ export const MainPageModule = (() => {
     }
   };
 
+  const toggleDarkBackground = () => {
+    const darkBackground = document.querySelector(".darkened-screen");
+    darkBackground.classList.toggle("active-background");
+  };
+
   return {
     createMainPage,
     addContentToMain,
-    toggleTaskButton
+    toggleTaskButton,
+    toggleDarkBackground
   };
 })();
 
@@ -67,19 +79,19 @@ export const ProjectModule = (() => {
     const projectTab = document.querySelector(".projects-collection");
 
     return projectTab;
-  }
+  };
 
   // Gets the element that holds the collection of projects
   const getProjectTabCollection = () => {
     const projectTabCollection = getProjectTab().childNodes;
 
     return projectTabCollection;
-  }
+  };
 
   // Deletes project from projectCollection
   const deleteProjectFromArr = (project) => {
     projectCollection = projectCollection.filter((word) => word !== project);
-  }
+  };
 
   // Creates UI that allows new project creation
   const createProjectNameInput = () => {
@@ -109,7 +121,7 @@ export const ProjectModule = (() => {
     ]);
 
     return projectNameGenerator;
-  }
+  };
 
   // Creates project selection UI
   const createNewProjectSelection = (name) => {
@@ -124,7 +136,7 @@ export const ProjectModule = (() => {
     appendComponent(newProject, [projectName, deleteIcon]);
 
     return newProject;
-  }
+  };
 
   // Appends projects to their section in the sidebar
   const appendProjectsToSidebar = () => {
@@ -135,11 +147,11 @@ export const ProjectModule = (() => {
 
       getProjectTab().appendChild(createNewProjectSelection(elem));
     }
-  }
+  };
 
   const addNewProjectToArr = (project) => {
     projectCollection.push(project);
-  }
+  };
 
   return {
     getProjectTab,
@@ -147,6 +159,6 @@ export const ProjectModule = (() => {
     appendProjectsToSidebar,
     deleteProjectFromArr,
     addNewProjectToArr,
-    createProjectNameInput
+    createProjectNameInput,
   };
 })();

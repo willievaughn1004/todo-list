@@ -1,15 +1,13 @@
+import { MainPageModule } from "./pages";
+
 // Adds classes that make the sidebar appear and darkens the background
 export const toggleSidebar = () => {
   const sidebar = document.querySelector(".sidebar");
   const sidebarBackground = document.querySelector(".sidebar-background");
-  const main = document.querySelector("main");
-  const currentPage = document.querySelector(".current-page");
-  const currentHeader = currentPage.querySelector(".note-header");
 
   sidebar.classList.toggle("active");
   sidebarBackground.classList.toggle("active-2");
-  main.classList.toggle("active-background");
-  currentHeader.classList.toggle("active-background");
+  MainPageModule.toggleDarkBackground();
 }
 
 // Changes the form of the hamburger icon to a X and vice versa
