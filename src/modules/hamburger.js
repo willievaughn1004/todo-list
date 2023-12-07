@@ -1,19 +1,18 @@
+// Adds classes that make the sidebar appear and darkens the background
 export function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
-  const sidebarBackground = document.querySelector(".sidebar-background")
+  const sidebarBackground = document.querySelector(".sidebar-background");
   const main = document.querySelector("main");
-  const currentPage = document.querySelector(".current-page")
-  const currentHeader = currentPage.querySelector(".note-header")
+  const currentPage = document.querySelector(".current-page");
+  const currentHeader = currentPage.querySelector(".note-header");
 
-  // Adds classes that make the sidebar appear and darkens the background
   sidebar.classList.toggle("active");
   sidebarBackground.classList.toggle("active-2");
   main.classList.toggle("active-background");
   currentHeader.classList.toggle("active-background");
-
-  toggleHamburgerIcon();
 }
 
+// Changes the form of the hamburger icon to a X and vice versa
 export function toggleHamburgerIcon() {
   const sliceOne = document.querySelector(".slice.one");
   const sliceTwo = document.querySelector(".slice.two");
@@ -30,11 +29,4 @@ export function toggleHamburgerIcon() {
     sliceThree.style.transform = "";
     sliceTwo.style.visibility = "";
   };
-}
-
-export default function initializeToggle() {
-  const hamburgerMenuBtn = document.querySelector(".hamburger-menu-btn");
-  hamburgerMenuBtn.addEventListener("click", function () {
-    toggleSidebar();
-  });
-}
+};

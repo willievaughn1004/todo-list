@@ -1,19 +1,13 @@
 import "./scss/styles.scss";
-import initializeToggle, { toggleSidebar } from "./modules/hamburger.js";
 import { ProjectModule, createMainPage } from "./modules/pages.js";
 import { appendComponent } from "./modules/componentfunctions";
 import { NoteLogicModule } from "./modules/noteLogic";
-import { initializeEventListeners, sidebarEventListeners } from "./modules/eventListeners.js";
+import { initializeEventListeners } from "./modules/eventListeners.js";
 import {
   buildToDoNoteCreater,
   appendNotesToPage,
   generateEditableNote,
 } from "./modules/noteUI";
-import {
-  addNewProjectEventListener,
-  addProjectEventListeners,
-  toggleProjectMenu,
-} from "./modules/sidebar";
 
 export function createAddTaskEventListeners() {
   const taskButton = document.querySelector(".add-task");
@@ -104,37 +98,7 @@ function createEditableNoteEventListeners(id) {
     appendNotesToPage();
     createEditDeleteEventListeners();
   });
-}
-
-export function addEventListenersForSidebar() {
-  const wholeSidebar = document.querySelector(".sidebar");
-  const mainSidebarContainer = document.querySelector(".main-sidebar");
-  const mainSidebarContainerChildren =
-    mainSidebarContainer.querySelectorAll("[data-content]");
-
-  function addPageEventListeners(page) {
-    const pageType = page.getAttribute("class");
-    addContentToMain(pageType);
-    toggleSidebar();
-  }
-
-  mainSidebarContainerChildren.forEach(function (option) {
-    option.addEventListener("click", function () {
-      addPageEventListeners(option);
-    });
-
-    // document.addEventListener("click", function () {
-    //   if (wholeSidebar.classList.contains("active")) {
-    //     console.log("Hey")
-    //     toggleSidebar();
-    //   }
-    // });
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-    addProjectEventListeners();
-  });
-}
+};
 
 export function addContentToMain(content) {
   const currentPage = document.querySelector(".current-page");
@@ -145,12 +109,8 @@ export function addContentToMain(content) {
   createEditDeleteEventListeners();
 }
 
-initializeToggle();
 addContentToMain("inbox");
-addEventListenersForSidebar();
 ProjectModule.appendProjects();
-toggleProjectMenu();
-addNewProjectEventListener();
 initializeEventListeners();
 
 // TODO: Fix code to allow differation with code that is from projects. 

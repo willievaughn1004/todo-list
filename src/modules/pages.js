@@ -1,9 +1,11 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
 import { createAddTaskButton } from "./noteUI";
 
+// TODO: Create Main Page module that has (add content to Main Page) function in it.
 export function createMainPage(page) {
   const mainPage = buildComponent("div", "", {
-    class: `${page}-page current-page`, id: `${page}`
+    class: `${page}-page current-page`,
+    id: `${page}`,
   });
 
   const mainElement = buildComponent("h1", `${page}`, { class: "note-header" });
@@ -33,6 +35,7 @@ export function createMainPage(page) {
 // TODO: Write code that checks whether or not a project being created as the same name as another
 // Make it pop up during the pop up menu when you create the project name
 
+// Look over names of functions also refacter code
 export const ProjectModule = (function () {
   let projectCollection = ["Exercise", "Pee"];
 
