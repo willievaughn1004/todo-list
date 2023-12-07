@@ -7,18 +7,21 @@ import {
   isSameDay,
 } from "date-fns";
 
-export function getCurrentDatesInfo() {
+// Contains functions needed about dates
+export const getCurrentDatesInfo = () => {
   const todayDate = new Date();
   const startOfThisWeek = startOfWeek(todayDate);
   const endOfThisWeek = endOfWeek(todayDate);
 
-  function confirmToday(date) {
+  // Checks whether the date provided is today's date based on the local machine.
+  const confirmToday = (date) => {
     const parsedToday = parseISO(date);
 
     return isSameDay(parsedToday, todayDate);
-  }
+  };
 
-  function confirmWeek(date) {
+  // Checks whether the date provided is within the week, but after today's date based on the local machine.
+  const confirmWeek = (date) => {
     const currentDate = parseISO(date);
 
     return (
@@ -26,7 +29,7 @@ export function getCurrentDatesInfo() {
       isAfter(currentDate, startOfThisWeek) &&
       (isAfter(currentDate, todayDate) || isSameDay(currentDate, todayDate))
     );
-  }
+  };
 
   return {
     todayDate,
@@ -35,16 +38,16 @@ export function getCurrentDatesInfo() {
   };
 };
 
-// Formatting dates
+// Formates dates into a different style
 
-export function formatDate(date) {
-    if (!date) {
-        return ''
-    }
-    
-    const splitDate = date.split("-");
-  
-    const newDate = `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
-  
-    return newDate;
-  };
+export const formatDate = (date) => {
+  if (!date) {
+    return "";
+  }
+
+  const splitDate = date.split("-");
+
+  const newDate = `${splitDate[1]}/${splitDate[2]}/${splitDate[0]}`;
+
+  return newDate;
+};
