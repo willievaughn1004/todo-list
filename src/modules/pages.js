@@ -1,42 +1,61 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
-import { createAddTaskButton } from "./noteUI";
+import { createAddTaskButton, appendNotesToPage } from "./noteUI";
 
-// TODO: Create Main Page module that has (add content to Main Page) function in it.
-export function createMainPage(page) {
-  const mainPage = buildComponent("div", "", {
-    class: `${page}-page current-page`,
-    id: `${page}`,
-  });
+export const MainPageModule = (() => {
+  const createCurrentPage = (page) => {
+    const mainPage = buildComponent("div", "", {
+      class: `${page}-page current-page`,
+      id: `${page}`,
+    });
 
-  const mainElement = buildComponent("h1", `${page}`, { class: "note-header" });
+    const mainElement = buildComponent("h1", `${page}`, {
+      class: "note-header",
+    });
 
-  const noteContainer = buildComponent("div", "", {
-    class: "note-container",
-  });
+    const noteContainer = buildComponent("div", "", {
+      class: "note-container",
+    });
 
-  const noteCreationContainer = buildComponent("div", "", {
-    class: "note-creation-container",
-  });
+    const noteCreationContainer = buildComponent("div", "", {
+      class: "note-creation-container",
+    });
 
-  appendComponent(noteCreationContainer, [createAddTaskButton()]);
+    appendComponent(noteCreationContainer, [createAddTaskButton()]);
 
-  appendComponent(mainPage, [
-    mainElement,
-    noteContainer,
-    noteCreationContainer,
-  ]);
+    appendComponent(mainPage, [mainElement, noteContainer, noteCreationContainer]);
 
-  return mainPage;
-}
+    return mainPage;
+  };
 
-// Use these if need be, though you can try to refactor the
-// other function to allow for note/page creation.
-// export function createProjects()
+  const addContentToCurrent = (content) => {
+    const currentPage = document.querySelector(".current-page");
+    currentPage && currentPage.remove();
+    appendComponent("main", [createCurrentPage(`${content}`)]);
+    appendNotesToPage();
+  };
+
+  const toggleTaskButton = () => {
+    const taskButton = document.querySelector(".add-task");
+  
+    if (taskButton.style.display === "none") {
+      taskButton.style.display = "flex";
+    } else {
+      taskButton.style.display = "none";
+    }
+  };
+
+  return {
+    createCurrentPage,
+    addContentToCurrent,
+    toggleTaskButton
+  };
+})();
+
 // TODO: Write code that checks whether or not a project being created as the same name as another
 // Make it pop up during the pop up menu when you create the project name
 
 // Look over names of functions also refacter code
-export const ProjectModule = (function () {
+export const ProjectModule = (() => {
   let projectCollection = ["Exercise", "Pee"];
 
   function getProjectTab() {
