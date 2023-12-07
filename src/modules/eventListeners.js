@@ -2,11 +2,7 @@ import { toggleSidebar, toggleHamburgerIcon } from "../modules/hamburger.js";
 import { ProjectModule, MainPageModule } from "../modules/pages.js";
 import { appendComponent } from "../modules/componentfunctions";
 import { NoteLogicModule } from "../modules/noteLogic";
-import {
-  buildToDoNoteCreater,
-  appendNotesToPage,
-  generateEditableNote,
-} from "../modules/noteUI";
+import { NoteUIModule } from "../modules/noteUI";
 
 export const SidebarEventListenerModule = (() => {
   // Clicking the hamburger menu icon toggles the menu on and off
@@ -34,7 +30,6 @@ export const SidebarEventListenerModule = (() => {
     }
   };
 
-  // MAYBE: Add project event listeners to a different module
   // Toggles the project menu
   const toggleProjectMenu = () => {
     const projectToggleIcon = document.querySelector(".fa-chevron-down");
@@ -60,7 +55,7 @@ export const SidebarEventListenerModule = (() => {
     mainSidebarContainerChildren.forEach((option) => {
       option.addEventListener("click", () => {
         const pageType = option.getAttribute("class");
-        MainPageModule.addContentToCurrent(pageType);
+        MainPageModule.addContentToMain(pageType);
         createAddTaskEventListeners();
         NoteEventListenerModule.addEditDeleteNoteEventListeners();
         toggleSidebar();
@@ -77,7 +72,7 @@ export const SidebarEventListenerModule = (() => {
       project.addEventListener("click", (event) => {
         if (!event.target.classList.contains("fa-trash")) {
           const pageType = project.getAttribute("class");
-          MainPageModule.addContentToCurrent(pageType);
+          MainPageModule.addContentToMain(pageType);
           createAddTaskEventListeners();
           NoteEventListenerModule.addEditDeleteNoteEventListeners();
           toggleSidebar();
@@ -96,7 +91,7 @@ export const SidebarEventListenerModule = (() => {
     addIcon.addEventListener("click", () => {
       toggleSidebar();
       toggleHamburgerIcon();
-      main.append(ProjectModule.projectNameInput());
+      main.append(ProjectModule.createProjectNameInput());
       createNewProjectEventListener();
     });
   };
@@ -111,8 +106,8 @@ export const SidebarEventListenerModule = (() => {
     const projectGenerator = document.querySelector(".name-generator");
 
     submit.addEventListener("click", (event) => {
-      ProjectModule.addNewProject(projectInput.value);
-      ProjectModule.appendProjects();
+      ProjectModule.addNewProjectToArr(projectInput.value);
+      ProjectModule.appendProjectsToSidebar();
       projectGenerator.remove();
       addDeleteProjectEventListeners();
       generateProjectPageEventListeners();
@@ -149,13 +144,13 @@ export const NoteEventListenerModule = (() => {
       // Allows user to delete note
       deleteButton.addEventListener("click", () => {
         selectedNote.remove();
-        NoteLogicModule.deleteNoteFromObject(NoteLogicModule.findNote(noteID));
+        NoteLogicModule.deleteNoteFromObject(NoteLogicModule.findNoteInObject(noteID));
       });
 
       // Allows user to generate the edit note UI and add the necessary event listeners
       editButton.addEventListener("click", () => {
         selectedNote.innerHTML = "";
-        selectedNote.appendChild(generateEditableNote(noteID));
+        selectedNote.appendChild(NoteUIModule.generateEditableNote(noteID));
         createEditableNoteEventListeners(noteID);
       });
     }
@@ -175,8 +170,8 @@ export const NoteEventListenerModule = (() => {
 
     // Creates a new note and appends it to page
     submitButton.addEventListener("click", (event) => {
-      NoteLogicModule.uploadNoteInput(NoteLogicModule.getNoteInput());
-      appendNotesToPage();
+      NoteLogicModule.uploadNoteInput(NoteUIModule.getNoteInput());
+      NoteUIModule.appendNotesToPage();
       addEditDeleteNoteEventListeners();
       noteCreationElement.remove();
       MainPageModule.toggleTaskButton();
@@ -192,19 +187,17 @@ export const NoteEventListenerModule = (() => {
 
     // Rewrites the note both in UI and logic
     editableSubmit.addEventListener("click", () => {
-      NoteLogicModule.editNoteObject(
+      NoteLogicModule.editNoteInObject(
         NoteLogicModule.findNote(id),
         NoteLogicModule.getNoteInput()
       );
-      // Fix this to be a function you can call at any point.
-      // You repeat this multiple times.
-      appendNotesToPage();
+      NoteUIModule.appendNotesToPage();
       addEditDeleteNoteEventListeners();
     });
 
     // Removes the editable note UI and resets the page
     editableExit.addEventListener("click", () => {
-      appendNotesToPage();
+      NoteUIModule.appendNotesToPage();
       addEditDeleteNoteEventListeners();
     });
   };
@@ -225,7 +218,9 @@ const createAddTaskEventListeners = () => {
   );
 
   taskButton.addEventListener("click", () => {
-    appendComponent(noteCreationContainerUI, [buildToDoNoteCreater()]);
+    appendComponent(noteCreationContainerUI, [
+      NoteUIModule.buildToDoNoteCreater(),
+    ]);
     MainPageModule.toggleTaskButton();
     NoteEventListenerModule.createNoteCreationEventListeners();
     noteContainerUI.scrollTop = noteContainerUI.scrollHeight;

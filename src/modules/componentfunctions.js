@@ -1,3 +1,4 @@
+// Lets user to create any element with text and attributes
 export const buildComponent = (elem, text, attributes = {}) => {
   const element = document.createElement(`${elem}`);
   element.innerText = text;
@@ -10,6 +11,7 @@ export const buildComponent = (elem, text, attributes = {}) => {
   return element;
 };
 
+// Can append multiple elements onto another element.
 export const appendComponent = (targetElement, componentArr) => {
   let content;
 

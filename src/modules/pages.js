@@ -1,8 +1,10 @@
 import { appendComponent, buildComponent } from "./componentfunctions";
-import { createAddTaskButton, appendNotesToPage } from "./noteUI";
+import { NoteUIModule } from "./noteUI";
 
 export const MainPageModule = (() => {
-  const createCurrentPage = (page) => {
+  // Creates UI element that will be the main page shown. This changes depending on which
+  // sidebar option is selected.
+  const createMainPage = (page) => {
     const mainPage = buildComponent("div", "", {
       class: `${page}-page current-page`,
       id: `${page}`,
@@ -20,20 +22,22 @@ export const MainPageModule = (() => {
       class: "note-creation-container",
     });
 
-    appendComponent(noteCreationContainer, [createAddTaskButton()]);
+    appendComponent(noteCreationContainer, [NoteUIModule.createAddTaskButton()]);
 
     appendComponent(mainPage, [mainElement, noteContainer, noteCreationContainer]);
 
     return mainPage;
   };
 
-  const addContentToCurrent = (content) => {
+  // Adds the necessary content to the main page and appends it to the main element in HTML.
+  const addContentToMain = (content) => {
     const currentPage = document.querySelector(".current-page");
     currentPage && currentPage.remove();
-    appendComponent("main", [createCurrentPage(`${content}`)]);
-    appendNotesToPage();
+    appendComponent("main", [createMainPage(`${content}`)]);
+    NoteUIModule.appendNotesToPage();
   };
 
+  // Makes the "Add Task" button appear and reappear.
   const toggleTaskButton = () => {
     const taskButton = document.querySelector(".add-task");
   
@@ -45,8 +49,8 @@ export const MainPageModule = (() => {
   };
 
   return {
-    createCurrentPage,
-    addContentToCurrent,
+    createMainPage,
+    addContentToMain,
     toggleTaskButton
   };
 })();
@@ -58,23 +62,27 @@ export const MainPageModule = (() => {
 export const ProjectModule = (() => {
   let projectCollection = ["Exercise", "Pee"];
 
-  function getProjectTab() {
+  // Gets the element that holds the projects
+  const getProjectTab = () => {
     const projectTab = document.querySelector(".projects-collection");
 
     return projectTab;
   }
 
-  function getProjectTabCollection() {
+  // Gets the element that holds the collection of projects
+  const getProjectTabCollection = () => {
     const projectTabCollection = getProjectTab().childNodes;
 
     return projectTabCollection;
   }
 
-  function deleteProjectFromArr(project) {
+  // Deletes project from projectCollection
+  const deleteProjectFromArr = (project) => {
     projectCollection = projectCollection.filter((word) => word !== project);
   }
 
-  function projectNameInput() {
+  // Creates UI that allows new project creation
+  const createProjectNameInput = () => {
     const projectNameGenerator = buildComponent("form", "", {
       class: "name-generator",
     });
@@ -103,7 +111,8 @@ export const ProjectModule = (() => {
     return projectNameGenerator;
   }
 
-  function createProject(name) {
+  // Creates project selection UI
+  const createNewProjectSelection = (name) => {
     const newProject = buildComponent("div", "", { class: `${name}` });
 
     const projectName = buildComponent("div", name);
@@ -117,26 +126,27 @@ export const ProjectModule = (() => {
     return newProject;
   }
 
-  function appendProjects() {
+  // Appends projects to their section in the sidebar
+  const appendProjectsToSidebar = () => {
     getProjectTab().innerHTML = "";
 
     for (let i = 0; i < projectCollection.length; i++) {
       const elem = projectCollection[i];
 
-      getProjectTab().appendChild(createProject(elem));
+      getProjectTab().appendChild(createNewProjectSelection(elem));
     }
   }
 
-  function addNewProject(project) {
+  const addNewProjectToArr = (project) => {
     projectCollection.push(project);
   }
 
   return {
     getProjectTab,
     getProjectTabCollection,
-    appendProjects,
-    projectNameInput,
+    appendProjectsToSidebar,
     deleteProjectFromArr,
-    addNewProject,
+    addNewProjectToArr,
+    createProjectNameInput
   };
 })();
