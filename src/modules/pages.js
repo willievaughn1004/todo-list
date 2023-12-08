@@ -72,7 +72,7 @@ export const MainPageModule = (() => {
 
 // Look over names of functions also refacter code
 export const ProjectModule = (() => {
-  let projectCollection = ["Exercise", "Pee"];
+  let projectCollection = ["Exercise", "School", "Coding"];
 
   // Gets the element that holds the projects
   const getProjectTab = () => {
