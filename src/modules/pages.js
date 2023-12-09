@@ -63,7 +63,7 @@ export const MainPageModule = (() => {
     createMainPage,
     addContentToMain,
     toggleTaskButton,
-    toggleDarkBackground
+    toggleDarkBackground,
   };
 })();
 
@@ -149,8 +149,25 @@ export const ProjectModule = (() => {
     }
   };
 
+  // Adds new project to project array
   const addNewProjectToArr = (project) => {
     projectCollection.push(project);
+  };
+
+  const addNewProjectInputToPage = () => {
+    const main = document.querySelector("main");
+
+    main.append(createProjectNameInput());
+    MainPageModule.toggleDarkBackground();
+  };
+
+  const removeNewProjectInputToPage = () => {
+    const projectGenerator = document.querySelector(".name-generator");
+    
+    if (projectGenerator) {
+      projectGenerator.remove();
+      MainPageModule.toggleDarkBackground();
+    }
   };
 
   return {
@@ -160,5 +177,7 @@ export const ProjectModule = (() => {
     deleteProjectFromArr,
     addNewProjectToArr,
     createProjectNameInput,
+    removeNewProjectInputToPage,
+    addNewProjectInputToPage,
   };
 })();

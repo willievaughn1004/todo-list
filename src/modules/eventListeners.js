@@ -4,13 +4,47 @@ import { appendComponent } from "../modules/componentfunctions";
 import { NoteLogicModule } from "../modules/noteLogic";
 import { NoteUIModule } from "../modules/noteUI";
 
-export const SidebarEventListenerModule = (() => {
+const MainEventListenerModule = (() => {
+  const main = document.querySelector("main");
+  const sidebar = document.querySelector(".sidebar");
+  const addIcon = document.querySelector(".fa-plus");
+
+  // Allows user to toggle sidebar off when main is clicked when sidebar is active
+  const addMainSidebarToggle = () => {
+    main.addEventListener("click", (event) => {
+      if (sidebar.classList.contains("active") && event.target !== sidebar) {
+        toggleSidebar();
+        toggleHamburgerIcon();
+      }
+    });
+  };
+
+  // Allows user to toggle project input menu off when main is clicked when the project input menu is active
+  const addMainProjectInputToggle = () => {
+    main.addEventListener("click", (event) => {
+      const projectGenerator = document.querySelector(".name-generator");
+      if (event.target !== projectGenerator && event.target !== addIcon) {
+        ProjectModule.removeNewProjectInputToPage();
+      }
+    });
+  };
+
+  return {
+    addMainSidebarToggle,
+    addMainProjectInputToggle,
+  };
+})();
+
+const SidebarEventListenerModule = (() => {
   // Clicking the hamburger menu icon toggles the menu on and off
   const addSidebarToggleEventListener = () => {
     const hamburgerMenuBtn = document.querySelector(".hamburger-menu-btn");
+
     hamburgerMenuBtn.addEventListener("click", () => {
       toggleSidebar();
       toggleHamburgerIcon();
+      // Removes the new project input if it is on screen.
+      ProjectModule.removeNewProjectInputToPage();
     });
   };
 
@@ -86,14 +120,12 @@ export const SidebarEventListenerModule = (() => {
   // a new project for the sidebar
   const generateNewProjectInputEventListener = () => {
     const addIcon = document.querySelector(".fa-plus");
-    const main = document.querySelector("main");
 
     addIcon.addEventListener("click", () => {
       toggleSidebar();
       toggleHamburgerIcon();
-      main.append(ProjectModule.createProjectNameInput());
+      ProjectModule.addNewProjectInputToPage();
       createNewProjectEventListener();
-      MainPageModule.toggleDarkBackground();
     });
   };
 
@@ -105,17 +137,15 @@ export const SidebarEventListenerModule = (() => {
   const createNewProjectEventListener = () => {
     const submit = document.querySelector(".submit-project");
     const projectInput = document.querySelector(".project-input");
-    const projectGenerator = document.querySelector(".name-generator");
 
     submit.addEventListener("click", (event) => {
       ProjectModule.addNewProjectToArr(projectInput.value);
       ProjectModule.appendProjectsToSidebar();
-      projectGenerator.remove();
       addDeleteProjectEventListeners();
       generateProjectPageEventListeners();
       toggleSidebar();
       toggleHamburgerIcon();
-      MainPageModule.toggleDarkBackground();
+      ProjectModule.removeNewProjectInputToPage();
       event.preventDefault();
     });
   };
@@ -131,7 +161,7 @@ export const SidebarEventListenerModule = (() => {
   };
 })();
 
-export const NoteEventListenerModule = (() => {
+const NoteEventListenerModule = (() => {
   // Adds the event listeners to notes that are on the page
   const addEditDeleteNoteEventListeners = () => {
     const noteUICollection = document.getElementsByClassName("todo-note");
@@ -147,7 +177,9 @@ export const NoteEventListenerModule = (() => {
       // Allows user to delete note
       deleteButton.addEventListener("click", () => {
         selectedNote.remove();
-        NoteLogicModule.deleteNoteFromObject(NoteLogicModule.findNoteInObject(noteID));
+        NoteLogicModule.deleteNoteFromObject(
+          NoteLogicModule.findNoteInObject(noteID)
+        );
       });
 
       // Allows user to generate the edit note UI and add the necessary event listeners
@@ -237,6 +269,8 @@ export const initializeEventListeners = () => {
 
   SidebarEventListenerModule.generateMainPageEventListeners();
   SidebarEventListenerModule.addSidebarToggleEventListener();
+  MainEventListenerModule.addMainSidebarToggle();
+  MainEventListenerModule.addMainProjectInputToggle();
   SidebarEventListenerModule.addDeleteProjectEventListeners();
   SidebarEventListenerModule.toggleProjectMenu();
   SidebarEventListenerModule.generateNewProjectInputEventListener();
