@@ -57,6 +57,12 @@ export const MainPageModule = (() => {
   const toggleDarkBackground = () => {
     const darkBackground = document.querySelector(".darkened-screen");
     darkBackground.classList.toggle("active-background");
+
+    if (darkBackground.classList.contains("active-background")) {
+      darkBackground.style["z-index"] = 0;
+    } else {
+      darkBackground.style["z-index"] = -1;
+    }
   };
 
   return {
@@ -163,7 +169,7 @@ export const ProjectModule = (() => {
 
   const removeNewProjectInputToPage = () => {
     const projectGenerator = document.querySelector(".name-generator");
-    
+
     if (projectGenerator) {
       projectGenerator.remove();
       MainPageModule.toggleDarkBackground();

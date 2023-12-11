@@ -15,7 +15,6 @@ Future modifications
 6. Track amount of notes in each project/main option // 1.5 hours
 7. Write code that checks whether or not a project being created as the same name as another. 
 Make it pop up during the pop up menu when you create the project name // 30 minutes
-8. Allow user to click off sidebar/project to toggle them off. // 30 minutes
 
 */
 

@@ -62,14 +62,6 @@ header {
   }
 }
 
-main {
-  display: flex;
-  height: calc(100vh - 3rem);
-  margin-left: 3.5rem;
-
-  transition: background-color 0.2s ease-in-out 0s;
-}
-
 // Sidebar
 
 .sidebar,
@@ -189,17 +181,9 @@ main {
   margin-left: -3.5rem;
 }
 
-.sidebar-background {
-  z-index: -1;
-}
-
 .active-background {
   background-color: rgba($color: #000000, $alpha: 0.6);
-}
-
-.active-2 {
-  margin-left: -3.5rem;
-  box-shadow: 0px 0px 15px black;
+  z-index: -1;
 }
 
 // Add Task Button
@@ -482,11 +466,19 @@ main {
 
 // Main Page section
 
+main {
+  display: flex;
+  height: calc(100vh - 3rem);
+  margin-left: 3.5rem;
+  transition: background-color 0.2s ease-in-out 0s;
+}
+
 .darkened-screen {
   position: absolute;
   height: 100%;
   width: 100%;
   margin-left: -3.5rem;
+  z-index: -1;
 }
 
 .current-page {

@@ -12,7 +12,11 @@ const MainEventListenerModule = (() => {
   // Allows user to toggle sidebar off when main is clicked when sidebar is active
   const addMainSidebarToggle = () => {
     main.addEventListener("click", (event) => {
-      if (sidebar.classList.contains("active") && event.target !== sidebar) {
+      if (
+        sidebar.classList.contains("active") &&
+        event.target !== sidebar &&
+        !event.target.classList.contains("submit-project")
+      ) {
         toggleSidebar();
         toggleHamburgerIcon();
       }
@@ -22,8 +26,12 @@ const MainEventListenerModule = (() => {
   // Allows user to toggle project input menu off when main is clicked when the project input menu is active
   const addMainProjectInputToggle = () => {
     main.addEventListener("click", (event) => {
-      const projectGenerator = document.querySelector(".name-generator");
-      if (event.target !== projectGenerator && event.target !== addIcon) {
+      if (
+        !event.target.classList.contains("name-generator") &&
+        !event.target.classList.contains("project-input") &&
+        !event.target.classList.contains("submit-project") &&
+        event.target !== addIcon
+      ) {
         ProjectModule.removeNewProjectInputToPage();
       }
     });
