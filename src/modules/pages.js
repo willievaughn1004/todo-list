@@ -73,9 +73,6 @@ export const MainPageModule = (() => {
   };
 })();
 
-// TODO: Write code that checks whether or not a project being created as the same name as another
-// Make it pop up during the pop up menu when you create the project name
-
 // Look over names of functions also refacter code
 export const ProjectModule = (() => {
   let projectCollection = ["Exercise", "School", "Coding"];
@@ -162,6 +159,8 @@ export const ProjectModule = (() => {
 
   // Adds new project to project array
   const addNewProjectToArr = (project) => {
+    const formattedProject = project.split(" ").join("-")
+    console.log(formattedProject)
     projectCollection.push(project);
   };
 
