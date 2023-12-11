@@ -60,6 +60,7 @@ const SidebarEventListenerModule = (() => {
   const addDeleteProjectEventListeners = () => {
     const projects = ProjectModule.getProjectTabCollection();
 
+
     for (let i = 0; i < projects.length; i++) {
       const elem = projects[i];
 
@@ -68,6 +69,16 @@ const SidebarEventListenerModule = (() => {
       deletedProject.addEventListener("click", () => {
         elem.remove();
         ProjectModule.deleteProjectFromArr(elem.textContent);
+        NoteLogicModule.deleteNoteByType(elem.textContent);
+        const currentPage = document.querySelector(".current-page");
+        currentPage.classList = '';
+        currentPage.classList.add("inbox-page");
+        currentPage.classList.add("current-page");
+        MainPageModule.addContentToMain("Inbox");
+        createAddTaskEventListeners();
+        NoteEventListenerModule.addEditDeleteNoteEventListeners();
+        toggleSidebar();
+        toggleHamburgerIcon();
       });
     }
   };
@@ -144,9 +155,26 @@ const SidebarEventListenerModule = (() => {
   */
   const createNewProjectEventListener = () => {
     const submit = document.querySelector(".submit-project");
+    const generatorText = document.querySelector("#generater-text")
     const projectInput = document.querySelector(".project-input");
 
     submit.addEventListener("click", (event) => {
+      if (projectInput.value === '') {
+        return
+      };
+
+      if (ProjectModule.getProjectArr().includes(projectInput.value)) {
+        generatorText.textContent = "Project already created";
+        event.preventDefault();
+        return
+      };
+
+      if (/\b(inbox|today|week)\b/i.test(projectInput.value)) {
+        generatorText.textContent = "Please choose a different name";
+        event.preventDefault();
+        return
+      };
+
       ProjectModule.addNewProjectToArr(projectInput.value);
       ProjectModule.appendProjectsToSidebar();
       addDeleteProjectEventListeners();
@@ -156,6 +184,8 @@ const SidebarEventListenerModule = (() => {
       ProjectModule.removeNewProjectInputToPage();
       event.preventDefault();
     });
+
+
   };
 
   return {

@@ -4,7 +4,7 @@ import { getCurrentDatesInfo } from "./dateFunctions";
 
 export const NoteLogicModule = (() => {
   // Array that contains objects of notes
-  const notes = [
+  let notes = [
     {
       taskname: "Inbox",
       description: "I need to jog",
@@ -57,13 +57,25 @@ export const NoteLogicModule = (() => {
 
   // Delete a specific note in the note array
   const deleteNoteFromObject = (index) => {
-    notes.splice(index, 1);
+    getNotesArr().splice(index, 1);
+  };
+
+  // Deletes notes based on project type
+  const deleteNoteByType = (projectType) => {
+    const updatedNotes = getNotesArr().filter(
+      (note) => note.type !== projectType
+    );
+    notes = updatedNotes;
+  };
+
+  const getNotesArr = () => {
+    return notes;
   };
 
   // Sorts notes to find a specific one based on the order number
   const findNoteInObject = (orderNumber) => {
-    const selecteNote = notes.find((note) => note.order == orderNumber);
-    const index = notes.indexOf(selecteNote);
+    const selecteNote = getNotesArr().find((note) => note.order == orderNumber);
+    const index = getNotesArr().indexOf(selecteNote);
 
     return index;
   };
@@ -77,10 +89,10 @@ export const NoteLogicModule = (() => {
   };
 
   // Maintains history of notes and updates everytime it is ran.
-  // This is helpful to assign order to notes, which helps other 
-  // functions find the note later to remove or edit. 
+  // This is helpful to assign order to notes, which helps other
+  // functions find the note later to remove or edit.
   const noteHistory = (() => {
-    let noteHistory = notes.length;
+    let noteHistory = getNotesArr().length;
 
     return () => {
       noteHistory++;
@@ -99,7 +111,7 @@ export const NoteLogicModule = (() => {
       type: data.type,
     };
 
-    notes.push(newNote);
+    getNotesArr().push(newNote);
   };
 
   // For filtering notes to the corresponding main page.
@@ -108,7 +120,7 @@ export const NoteLogicModule = (() => {
     let filteredNotes;
     const currentDateaInfo = getCurrentDatesInfo();
 
-    if (selectedPage.classList[0] === "inbox-page") {
+    if (/inbox-page/i.test(selectedPage.classList[0])) {
       filteredNotes = noteList.filter(
         (note) => note.type === "inbox" || "today" || "week"
       );
@@ -131,6 +143,8 @@ export const NoteLogicModule = (() => {
 
   return {
     notes,
+    getNotesArr,
+    deleteNoteByType,
     deleteNoteFromObject,
     uploadNoteInput,
     findNoteInObject,

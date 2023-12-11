@@ -37,8 +37,8 @@ export const MainPageModule = (() => {
 
   // Adds the necessary content to the main page and appends it to the main element in HTML.
   const addContentToMain = (content) => {
-    const currentPage = document.querySelector(".current-page");
-    currentPage && currentPage.remove();
+    const current = document.querySelector(".current-page");
+    current && current.remove();
     appendComponent("main", [createMainPage(`${content}`)]);
     NoteUIModule.appendNotesToPage();
   };
@@ -80,6 +80,10 @@ export const MainPageModule = (() => {
 export const ProjectModule = (() => {
   let projectCollection = ["Exercise", "School", "Coding"];
 
+  const getProjectArr = () => {
+    return projectCollection;
+  }
+
   // Gets the element that holds the projects
   const getProjectTab = () => {
     const projectTab = document.querySelector(".projects-collection");
@@ -107,6 +111,7 @@ export const ProjectModule = (() => {
 
     const generatorText = buildComponent("label", "Name your new project...", {
       for: "project-name",
+      id: "generater-text"
     });
     const projectNameInput = buildComponent("input", "", {
       class: "project-input",
@@ -177,6 +182,7 @@ export const ProjectModule = (() => {
   };
 
   return {
+    getProjectArr,
     getProjectTab,
     getProjectTabCollection,
     appendProjectsToSidebar,
