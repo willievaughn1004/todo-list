@@ -59,7 +59,7 @@ export const MainPageModule = (() => {
     darkBackground.classList.toggle("active-background");
 
     if (darkBackground.classList.contains("active-background")) {
-      darkBackground.style["z-index"] = 0;
+      darkBackground.style["z-index"] = 1;
     } else {
       darkBackground.style["z-index"] = -1;
     }

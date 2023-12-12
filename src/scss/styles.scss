@@ -68,7 +68,6 @@ header {
 .sidebar-background {
   display: flex;
   flex-direction: column;
-  height: 100%;
   position: absolute;
   color: black;
   background-color: white;
@@ -79,7 +78,7 @@ header {
   transition: all 0.2s ease-in-out 0s;
   top: 3rem;
   bottom: 0rem;
-  z-index: 1;
+  z-index: 2;
 
   .main-sidebar {
     display: flex;
@@ -475,7 +474,7 @@ main {
 
 .darkened-screen {
   position: absolute;
-  height: 100%;
+  height: calc(100vh - 3rem);
   width: 100%;
   margin-left: -3.5rem;
   z-index: -1;
@@ -490,11 +489,13 @@ main {
 
   .note-header {
     position: sticky;
+    z-index: 0;
     text-transform: capitalize;
     padding: 2rem 0 1rem 0;
     top: 0;
     color: $header-text-color;
     font-weight: 700;
     font-size: 1.5rem;
+    background-color: white;
   }
 }

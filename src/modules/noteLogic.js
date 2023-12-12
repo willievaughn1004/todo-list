@@ -1,7 +1,5 @@
 import { getCurrentDatesInfo } from "./dateFunctions";
 
-//TODO: Fix error with selection. If you submit a note without a priority, then an error occurs
-
 export const NoteLogicModule = (() => {
   // Array that contains objects of notes
   let notes = [
