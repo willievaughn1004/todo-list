@@ -161,7 +161,7 @@ header {
   flex-direction: column;
   gap: 1rem;
   text-align: center;
-
+  z-index: 1;
   background-color: $header-background-color;
   padding: 1.5rem;
   border-radius: 10px;

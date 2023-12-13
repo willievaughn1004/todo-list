@@ -10,7 +10,7 @@ export const MainPageModule = (() => {
       id: `${page}`,
     });
 
-    const mainElement = buildComponent("h1", `${page}`, {
+    const mainElement = buildComponent("h1", `${page.split("-").join(" ")}`, {
       class: "note-header",
     });
 
@@ -135,7 +135,7 @@ export const ProjectModule = (() => {
   const createNewProjectSelection = (name) => {
     const newProject = buildComponent("div", "", { class: `${name}` });
 
-    const projectName = buildComponent("div", name);
+    const projectName = buildComponent("div", name.split("-").join(" "));
 
     const deleteIcon = buildComponent("i", "", {
       class: "fa-solid fa-trash delete-button",
@@ -149,6 +149,7 @@ export const ProjectModule = (() => {
   // Appends projects to their section in the sidebar
   const appendProjectsToSidebar = () => {
     getProjectTab().innerHTML = "";
+    console.log(projectCollection)
 
     for (let i = 0; i < projectCollection.length; i++) {
       const elem = projectCollection[i];
@@ -160,8 +161,7 @@ export const ProjectModule = (() => {
   // Adds new project to project array
   const addNewProjectToArr = (project) => {
     const formattedProject = project.split(" ").join("-")
-    console.log(formattedProject)
-    projectCollection.push(project);
+    projectCollection.push(formattedProject);
   };
 
   const addNewProjectInputToPage = () => {
