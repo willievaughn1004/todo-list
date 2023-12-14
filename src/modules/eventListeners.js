@@ -268,8 +268,8 @@ const NoteEventListenerModule = (() => {
     // Rewrites the note both in UI and logic
     editableSubmit.addEventListener("click", () => {
       NoteLogicModule.editNoteInObject(
-        NoteLogicModule.findNote(id),
-        NoteLogicModule.getNoteInput()
+        NoteLogicModule.findNoteInObject(id),
+        NoteUIModule.getNoteInput()
       );
       NoteUIModule.appendNotesToPage();
       addEditDeleteNoteEventListeners();

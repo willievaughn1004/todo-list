@@ -218,7 +218,7 @@ export const NoteUIModule = (()=> {
     const newNoteCreater = buildToDoNoteCreater();
     newNoteCreater.setAttribute("class", "note-creation editable-note");
   
-    const index = NoteLogicModule.findNote(id);
+    const index = NoteLogicModule.findNoteInObject(id);
   
     const editableTaskName = newNoteCreater.querySelector(".task-name");
     const editableDescription = newNoteCreater.querySelector(".description");
