@@ -149,7 +149,6 @@ export const ProjectModule = (() => {
   // Appends projects to their section in the sidebar
   const appendProjectsToSidebar = () => {
     getProjectTab().innerHTML = "";
-    console.log(projectCollection)
 
     for (let i = 0; i < projectCollection.length; i++) {
       const elem = projectCollection[i];

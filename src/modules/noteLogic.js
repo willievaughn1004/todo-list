@@ -117,7 +117,6 @@ export const NoteLogicModule = (() => {
     const selectedPage = document.querySelector(".current-page");
     let filteredNotes;
     const currentDateaInfo = getCurrentDatesInfo();
-    console.log(selectedPage.classList)
 
     if (/inbox-page/i.test(selectedPage.classList[0])) {
       filteredNotes = noteList.filter(

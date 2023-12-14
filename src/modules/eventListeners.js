@@ -209,11 +209,18 @@ const NoteEventListenerModule = (() => {
 
       const deleteButton = selectedNote.querySelector(".delete-button");
       const editButton = selectedNote.querySelector(".edit-button");
-
+      const checkBox = selectedNote.querySelector(".checkbox");
       const noteID = selectedNote.id;
 
       // Allows user to delete note
       deleteButton.addEventListener("click", () => {
+        selectedNote.remove();
+        NoteLogicModule.deleteNoteFromObject(
+          NoteLogicModule.findNoteInObject(noteID)
+        );
+      });
+
+      checkBox.addEventListener("click", () => {
         selectedNote.remove();
         NoteLogicModule.deleteNoteFromObject(
           NoteLogicModule.findNoteInObject(noteID)

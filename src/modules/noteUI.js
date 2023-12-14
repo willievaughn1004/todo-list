@@ -152,6 +152,9 @@ export const NoteUIModule = (()=> {
     });
   
     const checkBox = buildComponent("button", "", { class: "checkbox" });
+    const checkMark = buildComponent("i", "", { class: "fa-solid fa-check"});
+
+    appendComponent(checkBox, [checkMark])
   
     if (note.priority === "low") {
       checkBox.style.backgroundColor = "rgba(76, 175, 80, 0.3)";
@@ -166,6 +169,8 @@ export const NoteUIModule = (()=> {
       checkBox.style.backgroundColor = "white";
       checkBox.style.borderColor = "gray";
     }
+
+    console.log(checkBox.classList)
   
     const taskNameText = buildComponent("div", note.taskname, {
       class: "task-name-text",

@@ -415,6 +415,10 @@ header {
   width: 90%;
 
   .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 1rem;
@@ -422,6 +426,18 @@ header {
     grid-column: 1;
     grid-row: 1;
     cursor: pointer;
+
+    .fa-check {
+      display: none;
+      margin-top: 0.08rem;
+    }
+
+    &:hover {
+      .fa-check {
+        display: block;
+        margin-top: 0.08rem;
+      }
+    }
   }
 
   .task-name-text {
