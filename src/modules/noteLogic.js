@@ -116,7 +116,7 @@ export const NoteLogicModule = (() => {
   const filterNotes = (noteList) => {
     const selectedPage = document.querySelector(".current-page");
     let filteredNotes;
-    const currentDateaInfo = getCurrentDatesInfo();
+    const currentDateInfo = getCurrentDatesInfo();
 
     if (/inbox-page/i.test(selectedPage.classList[0])) {
       filteredNotes = noteList.filter(
@@ -124,11 +124,11 @@ export const NoteLogicModule = (() => {
       );
     } else if (selectedPage.classList[0] === "today-page") {
       filteredNotes = noteList.filter((note) =>
-        currentDateaInfo.confirmToday(note.date)
+        currentDateInfo.confirmToday(note.date)
       );
     } else if (selectedPage.classList[0] === "week-page") {
       filteredNotes = noteList.filter((note) =>
-        currentDateaInfo.confirmWeek(note.date)
+        currentDateInfo.confirmWeek(note.date)
       );
     } else if (selectedPage.classList[1] === "current-page") {
       filteredNotes = noteList.filter(
@@ -137,6 +137,26 @@ export const NoteLogicModule = (() => {
     }
 
     return filteredNotes;
+  };
+
+  const getNoteAmounts = () => {
+    const allNotes = NoteLogicModule.notes;
+
+    const inboxAmount = allNotes.length;
+
+    const todayAmount = allNotes.filter(
+      (note) => getCurrentDatesInfo().confirmToday(note.date)
+    ).length;
+
+    const weekAmount = allNotes.filter(
+      (note) => getCurrentDatesInfo().confirmWeek(note.date)
+    ).length;
+
+    return {
+      inboxAmount,
+      todayAmount,
+      weekAmount
+    };
   };
 
   return {
@@ -149,5 +169,6 @@ export const NoteLogicModule = (() => {
     editNoteInObject,
     filterNotes,
     noteHistory,
+    getNoteAmounts,
   };
 })();

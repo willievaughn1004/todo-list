@@ -17,4 +17,3 @@ Future modifications
 MainPageModule.addContentToMain("inbox");
 ProjectModule.appendProjectsToSidebar();
 initializeEventListeners();
-

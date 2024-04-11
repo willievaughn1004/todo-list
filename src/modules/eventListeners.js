@@ -60,7 +60,6 @@ const SidebarEventListenerModule = (() => {
   const addDeleteProjectEventListeners = () => {
     const projects = ProjectModule.getProjectTabCollection();
 
-
     for (let i = 0; i < projects.length; i++) {
       const elem = projects[i];
 
@@ -71,7 +70,7 @@ const SidebarEventListenerModule = (() => {
         ProjectModule.deleteProjectFromArr(elem.textContent);
         NoteLogicModule.deleteNoteByType(elem.textContent);
         const currentPage = document.querySelector(".current-page");
-        currentPage.classList = '';
+        currentPage.classList = "";
         currentPage.classList.add("inbox-page");
         currentPage.classList.add("current-page");
         MainPageModule.addContentToMain("Inbox");
@@ -155,25 +154,25 @@ const SidebarEventListenerModule = (() => {
   */
   const createNewProjectEventListener = () => {
     const submit = document.querySelector(".submit-project");
-    const generatorText = document.querySelector("#generater-text")
+    const generatorText = document.querySelector("#generater-text");
     const projectInput = document.querySelector(".project-input");
 
     submit.addEventListener("click", (event) => {
-      if (projectInput.value === '') {
-        return
-      };
+      if (projectInput.value === "") {
+        return;
+      }
 
       if (ProjectModule.getProjectArr().includes(projectInput.value)) {
         generatorText.textContent = "Project already created";
         event.preventDefault();
-        return
-      };
+        return;
+      }
 
       if (/\b(inbox|today|week)\b/i.test(projectInput.value)) {
         generatorText.textContent = "Please choose a different name";
         event.preventDefault();
-        return
-      };
+        return;
+      }
 
       ProjectModule.addNewProjectToArr(projectInput.value);
       ProjectModule.appendProjectsToSidebar();
@@ -184,8 +183,6 @@ const SidebarEventListenerModule = (() => {
       ProjectModule.removeNewProjectInputToPage();
       event.preventDefault();
     });
-
-
   };
 
   return {
@@ -218,6 +215,8 @@ const NoteEventListenerModule = (() => {
         NoteLogicModule.deleteNoteFromObject(
           NoteLogicModule.findNoteInObject(noteID)
         );
+
+        NoteUIModule.uploadNoteAmount();
       });
 
       checkBox.addEventListener("click", () => {
@@ -322,5 +321,6 @@ export const initializeEventListeners = () => {
 
   document.addEventListener("DOMContentLoaded", () => {
     SidebarEventListenerModule.generateProjectPageEventListeners();
+    NoteUIModule.uploadNoteAmount();
   });
 };
