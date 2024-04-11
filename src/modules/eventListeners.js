@@ -254,6 +254,7 @@ const NoteEventListenerModule = (() => {
       addEditDeleteNoteEventListeners();
       noteCreationElement.remove();
       MainPageModule.toggleTaskButton();
+      NoteUIModule.uploadNoteAmount();
       event.preventDefault();
     });
   };
