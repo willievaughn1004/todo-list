@@ -15,7 +15,8 @@ const MainEventListenerModule = (() => {
       if (
         sidebar.classList.contains("active") &&
         event.target !== sidebar &&
-        !event.target.classList.contains("submit-project")
+        !event.target.classList.contains("submit-project") &&
+        !event.target.classList.contains("fa-chevron-down")
       ) {
         toggleSidebar();
         toggleHamburgerIcon();
