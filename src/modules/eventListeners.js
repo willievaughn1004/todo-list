@@ -3,6 +3,7 @@ import { ProjectModule, MainPageModule } from "../modules/pages.js";
 import { appendComponent } from "../modules/componentfunctions";
 import { NoteLogicModule } from "../modules/noteLogic";
 import { NoteUIModule } from "../modules/noteUI";
+import { WebStorageModule } from "./webstorage.js";
 
 const MainEventListenerModule = (() => {
   const main = document.querySelector("main");
@@ -217,6 +218,7 @@ const NoteEventListenerModule = (() => {
           NoteLogicModule.findNoteInObject(noteID)
         );
 
+        WebStorageModule.updateNotesLocalStorage();
         NoteUIModule.uploadNoteAmount();
       });
 
@@ -251,6 +253,7 @@ const NoteEventListenerModule = (() => {
     // Creates a new note and appends it to page
     submitButton.addEventListener("click", (event) => {
       NoteLogicModule.uploadNoteInput(NoteUIModule.getNoteInput());
+      WebStorageModule.updateNotesLocalStorage();
       NoteUIModule.appendNotesToPage();
       addEditDeleteNoteEventListeners();
       noteCreationElement.remove();
@@ -272,6 +275,7 @@ const NoteEventListenerModule = (() => {
         NoteLogicModule.findNoteInObject(id),
         NoteUIModule.getNoteInput()
       );
+      WebStorageModule.updateNotesLocalStorage();
       NoteUIModule.appendNotesToPage();
       addEditDeleteNoteEventListeners();
     });

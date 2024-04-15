@@ -1,6 +1,7 @@
 import "./scss/styles.scss";
 import { ProjectModule, MainPageModule } from "./modules/pages.js";
 import { initializeEventListeners } from "./modules/eventListeners.js";
+import { WebStorageModule } from "./modules/webstorage.js";
 
 /*
 Future modifications
@@ -9,11 +10,11 @@ Future modifications
 */
 
 /*
-
+Need to some more testing
 5. Utilize web storage api to allow information to be saved. // 1.5 hours
-6. Track amount of notes in each project/main option // 1.5 hours
 */
-
+// localStorage.clear();
+WebStorageModule.setNotesLocalStorage();
 MainPageModule.addContentToMain("inbox");
 ProjectModule.appendProjectsToSidebar();
 initializeEventListeners();

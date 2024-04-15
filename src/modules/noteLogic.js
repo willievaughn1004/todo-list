@@ -140,7 +140,7 @@ export const NoteLogicModule = (() => {
   };
 
   const getNoteAmounts = () => {
-    const allNotes = NoteLogicModule.notes;
+    const allNotes = JSON.parse(localStorage.getItem("notesArr"));
 
     const inboxAmount = allNotes.length;
 

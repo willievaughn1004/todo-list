@@ -204,7 +204,7 @@ export const NoteUIModule = (() => {
   // Updates UI with notes from the note array
   const appendNotesToPage = () => {
     const currentNotes = NoteLogicModule.filterNotes(
-      NoteLogicModule.getNotesArr()
+      JSON.parse(localStorage.getItem("notesArr"))
     );
     const noteContainer = document.querySelector(".note-container");
     noteContainer.textContent = "";
