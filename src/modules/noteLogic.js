@@ -159,6 +159,12 @@ export const NoteLogicModule = (() => {
     };
   };
 
+  // Updates notes arr with whatever is in local storage
+
+  const updateNotesArr = () => {
+    notes = JSON.parse(localStorage.getItem("notesArr"));
+  }
+
   return {
     notes,
     getNotesArr,
@@ -170,5 +176,6 @@ export const NoteLogicModule = (() => {
     filterNotes,
     noteHistory,
     getNoteAmounts,
+    updateNotesArr,
   };
 })();

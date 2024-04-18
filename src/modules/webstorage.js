@@ -2,15 +2,15 @@ import { NoteLogicModule } from "./noteLogic";
 
 export const WebStorageModule = (() => {
   const setNotesLocalStorage = () => {
+    console.log(!localStorage.getItem("notesArr"));
+    
     if (!localStorage.getItem("notesArr")) {
-      localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.notes));
+      localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.getNotesArr()));
     }
-    console.log(localStorage.getItem("notesArr"));
   };
 
   const updateNotesLocalStorage = () => {
-    localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.notes))
-    console.log(localStorage.getItem("notesArr"));
+    localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.getNotesArr()))
   }
 
   return {
