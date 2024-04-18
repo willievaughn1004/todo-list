@@ -70,7 +70,10 @@ const SidebarEventListenerModule = (() => {
       deletedProject.addEventListener("click", () => {
         elem.remove();
         ProjectModule.deleteProjectFromArr(elem.textContent);
+        WebStorageModule.updateProjectsLocalStorage();
         NoteLogicModule.deleteNoteByType(elem.textContent);
+        WebStorageModule.updateNotesLocalStorage();
+        NoteUIModule.uploadNoteAmount();
         const currentPage = document.querySelector(".current-page");
         currentPage.classList = "";
         currentPage.classList.add("inbox-page");
@@ -177,6 +180,7 @@ const SidebarEventListenerModule = (() => {
       }
 
       ProjectModule.addNewProjectToArr(projectInput.value);
+      WebStorageModule.updateProjectsLocalStorage();
       ProjectModule.appendProjectsToSidebar();
       addDeleteProjectEventListeners();
       generateProjectPageEventListeners();

@@ -204,8 +204,7 @@ export const NoteUIModule = (() => {
   // Updates UI with notes from the note array
   const appendNotesToPage = () => {
     const currentNotes = NoteLogicModule.filterNotes(
-      JSON.parse(localStorage.getItem("notesArr"))
-    );
+      NoteLogicModule.getNotesArr());
     const noteContainer = document.querySelector(".note-container");
     noteContainer.textContent = "";
 
@@ -225,9 +224,9 @@ export const NoteUIModule = (() => {
     const editableDescription = newNoteCreater.querySelector(".description");
     const editableDueDate = newNoteCreater.querySelector("#due-date");
 
-    editableTaskName.innerText = NoteLogicModule.notes[index].taskname;
-    editableDescription.innerText = NoteLogicModule.notes[index].description;
-    editableDueDate.value = NoteLogicModule.notes[index].date;
+    editableTaskName.innerText = NoteLogicModule.getNotesArr()[index].taskname;
+    editableDescription.innerText = NoteLogicModule.getNotesArr()[index].description;
+    editableDueDate.value = NoteLogicModule.getNotesArr()[index].date;
 
     return newNoteCreater;
   };

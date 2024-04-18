@@ -1,20 +1,32 @@
 import { NoteLogicModule } from "./noteLogic";
+import { ProjectModule } from "./pages";
 
 export const WebStorageModule = (() => {
   const setNotesLocalStorage = () => {
-    console.log(!localStorage.getItem("notesArr"));
-    
     if (!localStorage.getItem("notesArr")) {
       localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.getNotesArr()));
     }
   };
 
   const updateNotesLocalStorage = () => {
-    localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.getNotesArr()))
-  }
+    localStorage.setItem("notesArr", JSON.stringify(NoteLogicModule.getNotesArr()));
+  };
+
+  const setProjectsLocalStorage = () => {
+    if (!localStorage.getItem("projectsArr")) {
+      localStorage.setItem("projectsArr", JSON.stringify(ProjectModule.getProjectArr()));
+    }
+    console.log(localStorage.getItem("projectsArr"));
+  };
+
+  const updateProjectsLocalStorage = () => {
+    localStorage.setItem("projectsArr", JSON.stringify(ProjectModule.getProjectArr()));
+  };
 
   return {
     setNotesLocalStorage,
-    updateNotesLocalStorage
+    updateNotesLocalStorage,
+    setProjectsLocalStorage,
+    updateProjectsLocalStorage,
   }
 })();

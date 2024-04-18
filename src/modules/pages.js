@@ -179,6 +179,10 @@ export const ProjectModule = (() => {
     }
   };
 
+  const updateProjectArr = () => {
+    projectCollection = JSON.parse(localStorage.getItem("projectsArr"));
+  }
+
   return {
     getProjectArr,
     getProjectTab,
@@ -189,5 +193,6 @@ export const ProjectModule = (() => {
     createProjectNameInput,
     removeNewProjectInputToPage,
     addNewProjectInputToPage,
+    updateProjectArr,
   };
 })();
