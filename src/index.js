@@ -15,7 +15,6 @@ Need to some more testing, also need to do this with project list, errors with d
 5. Utilize web storage api to allow information to be saved. // 1.5 hours
 */
 
-localStorage.clear();
 WebStorageModule.setNotesLocalStorage();
 WebStorageModule.setProjectsLocalStorage();
 NoteLogicModule.updateNotesArr();
