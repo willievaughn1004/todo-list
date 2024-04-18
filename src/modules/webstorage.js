@@ -16,7 +16,6 @@ export const WebStorageModule = (() => {
     if (!localStorage.getItem("projectsArr")) {
       localStorage.setItem("projectsArr", JSON.stringify(ProjectModule.getProjectArr()));
     }
-    console.log(localStorage.getItem("projectsArr"));
   };
 
   const updateProjectsLocalStorage = () => {
